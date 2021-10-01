@@ -1,22 +1,13 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import * as React from 'react';
-import Head from 'next/head';
-import { AppProps } from 'next/app';
-import palette from 'theme/palette';
-import transform from 'theme/transform';
-import breakpoints from 'theme/breakpoints';
-import elevation from 'theme/elevation';
-import priority from 'theme/priority';
-
-// export default function MyApp(props: AppProps) {
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Fira Code', monospace;
-  }
-`;
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import UserProvider from "context";
+// import "styles/global.css";
+import palette from "theme/palette";
+import transform from "theme/transform";
+import breakpoints from "theme/breakpoints";
+import elevation from "theme/elevation";
+import priority from "theme/priority";
+import { AppProps } from "next/app";
+import Head from "next/head";
 
 const theme = {
   breakpoints,
@@ -26,7 +17,16 @@ const theme = {
   transform,
 };
 
-export default function App({ Component, pageProps }: AppProps) {
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fira Code', monospace;
+  }
+`;
+
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>
@@ -44,9 +44,11 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </UserProvider>
     </>
   );
 }

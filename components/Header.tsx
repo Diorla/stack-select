@@ -1,13 +1,13 @@
-import React from 'react';
-import Title from './Title';
-import Row from './Row';
-import Logo from './Logo';
-import Appbar from './Appbar';
-import Button from './Button';
-import Avatar from './Avatar';
-import SearchInput from './SearchInput';
+import React from "react";
+import Title from "./Title";
+import Row from "./Row";
+import Logo from "./Logo";
+import Appbar from "./Appbar";
+import Button from "./Button";
+import Avatar from "./Avatar";
+import SearchInput from "./SearchInput";
+import Hidden from "./Hidden";
 
-// https://github.com/Diorla.png
 const Left = () => (
   <Row>
     <Logo />
@@ -20,7 +20,9 @@ export default function Header() {
     return (
       <Appbar>
         <Left />
-        <SearchInput />
+        <Hidden smDown>
+          <SearchInput />
+        </Hidden>
         <Row>
           <Avatar src="https://github.com/Diorla.png" alt="user image" />
           <div>Ade Adeola</div>
@@ -34,14 +36,14 @@ export default function Header() {
         <Button
           variant="outlined"
           color="primary"
-          style={{ marginRight: '0.4rem' }}
+          style={{ marginRight: "0.4rem" }}
         >
           Sign in
         </Button>
         <Button
           color="primary"
           variant="outlined"
-          style={{ marginRight: '0.4rem' }}
+          style={{ marginRight: "0.4rem" }}
         >
           Sign up
         </Button>
