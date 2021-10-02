@@ -7,11 +7,14 @@ import Button from "./Button";
 import Avatar from "./Avatar";
 import SearchInput from "./SearchInput";
 import Hidden from "./Hidden";
+import Text from "./Text";
 
 const Left = () => (
   <Row>
     <Logo />
-    <Title />
+    <Hidden xsDown>
+      <Title />
+    </Hidden>
   </Row>
 );
 export default function Header() {
@@ -25,7 +28,7 @@ export default function Header() {
         </Hidden>
         <Row>
           <Avatar src="https://github.com/Diorla.png" alt="user image" />
-          <div>Ade Adeola</div>
+          <Text>Ade Adeola</Text>
         </Row>
       </Appbar>
     );

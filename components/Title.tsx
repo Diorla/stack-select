@@ -1,10 +1,5 @@
-import styled from 'styled-components';
-
-const TitleWrapper = styled.h1`
-  font-size: 1.4rem;
-  margin: 0.2rem;
-`;
+import Text from "./Text";
 
 export default function Title() {
-  return <TitleWrapper>Stack-Select</TitleWrapper>;
+  return <Text variant="h1">Stack-Select</Text>;
 }

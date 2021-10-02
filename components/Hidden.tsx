@@ -28,7 +28,6 @@ export default function Hidden({
   const [width, setWidth] = useState(0);
   useEffect(() => {
     let mounted = true;
-    console.log(window.innerWidth);
     const resizeWindow = () => {
       setWidth(window.innerWidth);
     };
