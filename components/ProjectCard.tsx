@@ -12,7 +12,13 @@ const sx = {
   reviewing: "In review",
   todo: "Not started",
 };
-export default function ProjectCard({ status }: { status: status }) {
+export default function ProjectCard({
+  status,
+  isList,
+}: {
+  status: status;
+  isList?: boolean;
+}) {
   let color: color = "primary";
   if (status === "doing") color = "warning";
   if (status === "done") color = "success";
@@ -27,7 +33,7 @@ export default function ProjectCard({ status }: { status: status }) {
       elevation={1}
       color={color}
       style={{
-        width: "16rem",
+        width: isList ? "90%" : "16rem",
         minHeight: "8rem",
         margin: "0.2rem",
         borderRadius: "0.4rem",

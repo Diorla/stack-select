@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { contrastColor } from 'scripts/color-functions';
-import color from 'interfaces/color';
-type variant = 'outlined' | 'contained' | 'text';
+import styled from "styled-components";
+import { contrastColor } from "scripts/color-functions";
+import color from "interfaces/color";
+type variant = "outlined" | "contained" | "text";
 
 const Styled = styled.button`
   border: none;
@@ -21,7 +21,7 @@ const Contained = styled(Styled)<{ color?: color }>`
   &:hover {
     box-shadow: ${({ theme }) => theme.elevation[3]};
   }
-  &:active{
+  &:active {
     box-shadow: ${({ theme }) => theme.elevation[1]};
   }
   &:disabled {
@@ -32,13 +32,13 @@ const Contained = styled(Styled)<{ color?: color }>`
 const Outlined = styled(Styled)<{ color?: color }>`
   border: 1px solid ${({ color, theme }) => color && theme.palette[color].main};
   color: ${({ color, theme }) => color && theme.palette[color].main};
-  background-color: ${({ theme }) => theme.palette.default.main};
+  background-color: ${({ theme }) => theme.palette.background.main};
   &:hover {
     background-color: transparent;
   }
-  &:active{
+  &:active {
     color: ${({ color, theme }) => color && theme.palette[color].main};
-    background-color: ${({ theme }) => theme.palette.default.light};
+    background-color: ${({ theme }) => theme.palette.background.shade};
   }
   &:disabled {
     opacity: 0.6;
@@ -50,11 +50,11 @@ const Text = styled(Styled)<{ color?: color }>`
   background-color: transparent;
   &:hover {
     background-color: transparent;
-    background-color: ${({ theme }) => theme.palette.default.main};
+    background-color: ${({ theme }) => theme.palette.background.main};
   }
-  &:active{
+  &:active {
     color: ${({ color, theme }) => color && theme.palette[color].main};
-    background-color: ${({ theme }) => theme.palette.default.light};
+    background-color: ${({ theme }) => theme.palette.background.shade};
   }
   &:disabled {
     opacity: 0.6;
@@ -72,13 +72,13 @@ export default function Button({
   color,
   ...props
 }: ButtonProps): JSX.Element {
-  if (variant === 'outlined')
+  if (variant === "outlined")
     return (
       <Outlined color={color} {...props}>
         {children}
       </Outlined>
     );
-  if (variant === 'text')
+  if (variant === "text")
     return (
       <Text color={color} {...props}>
         {children}

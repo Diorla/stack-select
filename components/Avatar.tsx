@@ -1,14 +1,12 @@
-import styled from 'styled-components';
-import color from 'interfaces/color';
-import { contrastColor } from 'scripts/color-functions';
+import styled from "styled-components";
+import color from "interfaces/color";
+import { contrastColor } from "scripts/color-functions";
 
 const Text = styled.div<{ color?: color }>`
   background-color: ${({ color, theme }) =>
-    color ? theme.palette[color].main : theme.palette.default.dark};
+    color ? theme.palette[color].main : theme.palette.background.main};
   color: ${({ color, theme }) =>
-    color
-      ? contrastColor(theme.palette[color].main)
-      : contrastColor(theme.palette.default.dark)};
+    color ? contrastColor(theme.palette[color].main) : theme.palette.text.main};
   display: inline-block;
   padding: 0.4rem;
   border-radius: 50%;

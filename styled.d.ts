@@ -51,11 +51,19 @@ declare module "styled-components" {
       dark: string;
       light: string;
     };
-    default: {
+    background: {
       main: string;
-      dark: string;
-      light: string;
-      text: string;
+      /**
+       * darker or lighter depending on the mode
+       */
+      shade: string;
+    };
+    text: {
+      main: string;
+      /**
+       * darker or lighter depending on the theme
+       */
+      shade: string;
     };
     link: {
       main: string;

@@ -11,6 +11,9 @@ import Stats from "components/Stats";
 import ProjectCard from "components/ProjectCard";
 import Scroll from "components/Scroll";
 import { status } from "interfaces/project";
+import SearchInput from "components/SearchInput";
+import Button from "components/Button";
+import Category from "components/Category";
 
 const list: number[] = [];
 for (let i = 0; i < 1000; i++) {
@@ -50,7 +53,17 @@ export default function Home() {
               width: "clamp(320px, 40%, 360px)",
             }}
           >
-            Hello there
+            <Row style={{ justifyContent: "center", marginTop: "0.4rem" }}>
+              <SearchInput />
+            </Row>
+            <Row style={{ justifyContent: "center", marginTop: "0.4rem" }}>
+              <Button color="secondary">New Stack</Button>
+            </Row>
+            <Scroll offset={8}>
+              {list.map((item) => (
+                <Category key={item} />
+              ))}
+            </Scroll>
           </Pane>
         </Hidden>
       </Row>
