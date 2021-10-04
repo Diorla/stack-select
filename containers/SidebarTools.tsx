@@ -4,7 +4,7 @@ import Pane from "components/Pane";
 import Row from "components/Row";
 import Scroll from "components/Scroll";
 import SearchInput from "components/SearchInput";
-import Stack from "components/Stack";
+import Pile from "components/Pile";
 import ToolCard from "components/ToolItem";
 import React, { useState } from "react";
 import { MdArrowBack } from "react-icons/md";
@@ -32,9 +32,9 @@ export default function SidebarTools({
       <Row style={{ alignItems: "center", cursor: "pointer" }} onClick={goBack}>
         <MdArrowBack style={{ fontSize: "1.5rem" }} /> Back
       </Row>
-      <Stack style={{ justifyContent: "center", marginTop: "0.4rem" }}>
+      <Pile style={{ justifyContent: "center", marginTop: "0.4rem" }}>
         <SearchInput />
-      </Stack>
+      </Pile>
       <Row style={{ justifyContent: "center", marginTop: "0.4rem" }}>
         <Button color="secondary" onClick={() => setCreateToolVisible(true)}>
           New tool

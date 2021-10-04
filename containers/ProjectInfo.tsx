@@ -6,7 +6,7 @@ import Note from "components/Note";
 import Pane from "components/Pane";
 import Row from "components/Row";
 import Scroll from "components/Scroll";
-import Stack from "components/Stack";
+import Pile from "components/Pile";
 import Text from "components/Text";
 import React from "react";
 import { MdArrowBack } from "react-icons/md";
@@ -37,7 +37,7 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
         </Row>
       </Row>
       <Scroll offset={6}>
-        <Stack>
+        <Pile>
           <Text variant="h3">Vue js</Text>
           <Text>
             Id exercitation officia est esse et nulla nostrud et dolor fugiat
@@ -58,7 +58,7 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
               </Text>
             ))}
           </Row>
-          <Stack style={{ alignItems: "center", marginTop: "0.4rem" }}>
+          <Pile style={{ alignItems: "center", marginTop: "0.4rem" }}>
             <Button style={{ marginBottom: "0.2rem" }}>Add Note</Button>
             <Row
               style={{
@@ -71,8 +71,8 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
                 <Note key={item} />
               ))}
             </Row>
-          </Stack>
-        </Stack>
+          </Pile>
+        </Pile>
       </Scroll>
     </Pane>
   );

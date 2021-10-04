@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Stack from "components/Stack";
+import Pile from "components/Pile";
 
-const SidebarDropdown = styled(Stack)<{ visible: boolean }>`
+const SidebarDropdown = styled(Pile)<{ visible: boolean }>`
   position: sticky;
   top: 0;
   background: ${({ theme }) => theme.palette.background.main};

@@ -3,7 +3,7 @@ import { FaHome, FaTools } from "react-icons/fa";
 import { GrStackOverflow } from "react-icons/gr";
 import { MdSettings } from "react-icons/md";
 import SidebarIcon from "./SidebarIcon";
-import Stack from "./Stack";
+import Pile from "./Pile";
 import Link from "next/link";
 
 export default function Sidebar({
@@ -12,7 +12,7 @@ export default function Sidebar({
   activePath: "home" | "stack" | "tool" | "settings";
 }) {
   return (
-    <Stack>
+    <Pile>
       <Link href="/">
         <a>
           <SidebarIcon icon={<FaHome />} active={activePath === "home"} />
@@ -39,6 +39,6 @@ export default function Sidebar({
           />
         </a>
       </Link>
-    </Stack>
+    </Pile>
   );
 }

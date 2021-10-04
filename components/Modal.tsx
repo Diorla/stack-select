@@ -14,9 +14,9 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 const Box = styled(Card)`
-  min-height: 15rem;
   width: clamp(240px, 80%, 480px);
   border-radius: 4px;
+  padding: 0.2rem;
 `;
 
 export default function Modal({

@@ -3,6 +3,7 @@ import Header from "components/Header";
 import Sidebar from "components/Sidebar";
 import Container from "components/Container";
 import Main from "components/Main";
+import { useUser } from "context";
 
 export default function Layout({
   children,
@@ -11,11 +12,11 @@ export default function Layout({
   children: React.ReactNode;
   activePath: "home" | "stack" | "tool" | "settings";
 }) {
-  const isLoggedIn = true;
+  const { user } = useUser();
   return (
     <Container>
       <Header />
-      {isLoggedIn ? (
+      {user.uid ? (
         <Main>
           <Sidebar activePath={activePath} />
           {children}

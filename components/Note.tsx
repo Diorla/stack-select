@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Button from "./Button";
 import Row from "./Row";
-import Stack from "./Stack";
+import Pile from "./Pile";
 import Text from "./Text";
 
-const NoteWrapper = styled(Stack)`
+const NoteWrapper = styled(Pile)`
   width: 12rem;
   background: ${({ theme }) => theme.palette.primary.main}1a;
   margin: 0.2rem;

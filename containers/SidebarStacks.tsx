@@ -7,7 +7,7 @@ import Row from "components/Row";
 import Scroll from "components/Scroll";
 import SearchInput from "components/SearchInput";
 import SidebarDropdown from "components/SidebarDropdown";
-import Stack from "components/Stack";
+import Pile from "components/Pile";
 import Textarea from "components/Textarea";
 import React, { useState } from "react";
 
@@ -53,7 +53,7 @@ export default function SidebarStacks({
       </Row>
       <Scroll offset={8}>
         <SidebarDropdown visible={stack.visible}>
-          <Stack>
+          <Pile>
             <InputLabel htmlFor="name">Name</InputLabel>
             <Input
               id="name"
@@ -65,8 +65,8 @@ export default function SidebarStacks({
                 })
               }
             />
-          </Stack>
-          <Stack>
+          </Pile>
+          <Pile>
             <InputLabel htmlFor="description">Description</InputLabel>
             <Textarea
               id="description"
@@ -78,7 +78,7 @@ export default function SidebarStacks({
                 })
               }
             />
-          </Stack>
+          </Pile>
           <Row style={{ justifyContent: "space-evenly" }}>
             <Button
               color="success"

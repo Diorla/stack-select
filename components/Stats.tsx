@@ -1,17 +1,17 @@
-import Stack from "./Stack";
+import Pile from "./Pile";
 import Text from "./Text";
 
 export default function Stats({
   value,
   title,
 }: {
-  value: string;
+  value: number;
   title: string;
 }) {
   return (
-    <Stack style={{ marginRight: "0.2rem" }}>
+    <Pile style={{ marginRight: "0.2rem" }}>
       <Text variant="h3">{value}</Text>
       <Text variant="subtitle1">{title}</Text>
-    </Stack>
+    </Pile>
   );
 }

@@ -5,7 +5,7 @@ import InputLabel from "components/InputLabel";
 import Rating from "components/Rating";
 import Row from "components/Row";
 import SidebarDropdown from "components/SidebarDropdown";
-import Stack from "components/Stack";
+import Pile from "components/Pile";
 import Textarea from "components/Textarea";
 import React, { useState } from "react";
 
@@ -19,7 +19,7 @@ export default function SidebarCreateTool({
   const [rating, setRating] = useState(0);
   return (
     <SidebarDropdown visible={visible}>
-      <Stack>
+      <Pile>
         <InputLabel htmlFor="name">Name</InputLabel>
         <Input id="name" />
         <InputLabel htmlFor="description">Description</InputLabel>
@@ -40,7 +40,7 @@ export default function SidebarCreateTool({
             Cancel
           </Button>
         </Row>
-      </Stack>
+      </Pile>
     </SidebarDropdown>
   );
 }

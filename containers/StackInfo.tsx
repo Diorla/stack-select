@@ -6,7 +6,7 @@ import Note from "components/Note";
 import Pane from "components/Pane";
 import Row from "components/Row";
 import Scroll from "components/Scroll";
-import Stack from "components/Stack";
+import Pile from "components/Pile";
 import Text from "components/Text";
 import React from "react";
 import { MdArrowBack } from "react-icons/md";
@@ -37,7 +37,7 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
         </Row>
       </Row>
       <Scroll offset={6}>
-        <Stack>
+        <Pile>
           <Text variant="h3">Frontend</Text>
           <Text>
             Id exercitation officia est esse et nulla nostrud et dolor fugiat
@@ -47,7 +47,7 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
             voluptate est ex deserunt. Commodo minim ipsum laborum pariatur.
             Quis fugiat ea laborum cupidatat in qui.
           </Text>
-        </Stack>
+        </Pile>
       </Scroll>
     </Pane>
   );

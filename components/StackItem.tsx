@@ -1,5 +1,5 @@
 import Row from "./Row";
-import Stack from "./Stack";
+import Pile from "./Pile";
 import Text from "./Text";
 
 export default function StackItem({
@@ -8,7 +8,7 @@ export default function StackItem({
   openTools: (tool: string) => void;
 }) {
   return (
-    <Stack
+    <Pile
       style={{
         borderBottom: "1px solid silver",
         width: "100%",
@@ -25,6 +25,6 @@ export default function StackItem({
         <Text>Dec 12, 2020</Text>
         <Text>21 tools</Text>
       </Row>
-    </Stack>
+    </Pile>
   );
 }
