@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { contrastColor } from "scripts/color-functions";
 import color from "interfaces/color";
+import React from "react";
 type variant = "outlined" | "contained" | "text";
 
 const Styled = styled.button`
@@ -11,6 +12,7 @@ const Styled = styled.button`
   display: flex;
   align-items: center;
   text-transform: Uppercase;
+  font-weight: 600;
 `;
 
 const Contained = styled(Styled)<{ color?: color }>`
@@ -62,7 +64,7 @@ const Text = styled(Styled)<{ color?: color }>`
 `;
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: string;
+  children: React.ReactNode;
   color?: color;
   variant?: variant;
 }

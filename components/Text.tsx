@@ -36,7 +36,7 @@ const Caption = styled.div``;
 const Overline = styled.div``;
 
 interface TextProps extends React.HTMLAttributes<HTMLElement> {
-  children: string;
+  children: React.ReactNode;
   variant?:
     | "h1"
     | "h2"

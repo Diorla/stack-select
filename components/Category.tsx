@@ -2,9 +2,20 @@ import Row from "./Row";
 import Stack from "./Stack";
 import Text from "./Text";
 
-export default function Category() {
+export default function Category({
+  openTools,
+}: {
+  openTools: (tool: string) => void;
+}) {
   return (
-    <Stack style={{ borderBottom: "1px solid silver", width: "100%" }}>
+    <Stack
+      style={{
+        borderBottom: "1px solid silver",
+        width: "100%",
+        cursor: "pointer",
+      }}
+      onClick={() => openTools("tool name")}
+    >
       <Row style={{ marginBottom: "0.8rem" }}>Stack name</Row>
       <Row
         style={{

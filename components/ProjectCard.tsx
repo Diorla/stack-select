@@ -15,9 +15,11 @@ const sx = {
 export default function ProjectCard({
   status,
   isList,
+  openProject,
 }: {
   status: status;
   isList?: boolean;
+  openProject: () => void;
 }) {
   let color: color = "primary";
   if (status === "doing") color = "warning";
@@ -38,6 +40,7 @@ export default function ProjectCard({
         margin: "0.2rem",
         borderRadius: "0.4rem",
       }}
+      onClick={() => openProject()}
     >
       <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
         <span />
