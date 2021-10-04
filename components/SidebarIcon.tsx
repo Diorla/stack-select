@@ -9,6 +9,7 @@ const Icon = styled.div`
   width: 2rem;
   height: 2rem;
   cursor: pointer;
+  color: black;
   &:hover {
     box-shadow: ${({ theme }) => theme.elevation[3]};
   }

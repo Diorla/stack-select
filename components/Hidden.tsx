@@ -1,3 +1,4 @@
+import useMedia from "hooks/useMedia";
 import { useEffect, useState } from "react";
 import breakpoints from "theme/breakpoints";
 export default function Hidden({
@@ -25,21 +26,7 @@ export default function Hidden({
   xlUp?: boolean;
   xlDown?: boolean;
 }) {
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    let mounted = true;
-    const resizeWindow = () => {
-      setWidth(window.innerWidth);
-    };
-    if (mounted) {
-      setWidth(window.innerWidth);
-      window.addEventListener("resize", resizeWindow);
-    }
-    return () => {
-      mounted = false;
-      window.removeEventListener("resize", resizeWindow);
-    };
-  });
+  const width = useMedia();
   if (xsUp && width <= breakpoints.xs) return <>{children}</>;
   if (xsDown && width >= breakpoints.xs) return <>{children}</>;
   if (smUp && width <= breakpoints.sm) return <>{children}</>;

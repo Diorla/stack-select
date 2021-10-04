@@ -4,6 +4,7 @@ import { GrStackOverflow } from "react-icons/gr";
 import { MdSettings } from "react-icons/md";
 import SidebarIcon from "./SidebarIcon";
 import Stack from "./Stack";
+import Link from "next/link";
 
 export default function Sidebar({
   activePath,
@@ -12,10 +13,32 @@ export default function Sidebar({
 }) {
   return (
     <Stack>
-      <SidebarIcon icon={<FaHome />} active={activePath === "home"} />
-      <SidebarIcon icon={<GrStackOverflow />} active={activePath === "stack"} />
-      <SidebarIcon icon={<FaTools />} active={activePath === "tool"} />
-      <SidebarIcon icon={<MdSettings />} active={activePath === "settings"} />
+      <Link href="/">
+        <a>
+          <SidebarIcon icon={<FaHome />} active={activePath === "home"} />
+        </a>
+      </Link>
+      <Link href="/stack">
+        <a>
+          <SidebarIcon
+            icon={<GrStackOverflow />}
+            active={activePath === "stack"}
+          />
+        </a>
+      </Link>
+      <Link href="/tool">
+        <a>
+          <SidebarIcon icon={<FaTools />} active={activePath === "tool"} />
+        </a>
+      </Link>
+      <Link href="/settings">
+        <a>
+          <SidebarIcon
+            icon={<MdSettings />}
+            active={activePath === "settings"}
+          />
+        </a>
+      </Link>
     </Stack>
   );
 }

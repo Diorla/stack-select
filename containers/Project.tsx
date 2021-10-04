@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SidebarCategories from "./SidebarCategories";
+import SidebarStacks from "./SidebarStacks";
 import SidebarTools from "./SidebarTools";
 import ProjectInfo from "./ProjectInfo";
 
@@ -9,11 +9,11 @@ export default function Projects({ goBack }: { goBack: () => void }) {
   return (
     <>
       <ProjectInfo goBack={goBack} />
-      {category ? (
-        <SidebarTools visible goBack={() => setCategory("")} />
-      ) : (
-        <SidebarCategories visible openTools={() => setCategory("tool name")} />
-      )}
+      <SidebarTools visible={!!category} goBack={() => setCategory("")} />
+      <SidebarStacks
+        visible={!category}
+        openTools={() => setCategory("tool name")}
+      />
     </>
   );
 }

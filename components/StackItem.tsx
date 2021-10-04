@@ -2,7 +2,7 @@ import Row from "./Row";
 import Stack from "./Stack";
 import Text from "./Text";
 
-export default function Category({
+export default function StackItem({
   openTools,
 }: {
   openTools: (tool: string) => void;

@@ -5,12 +5,12 @@ import Divider from "./Divider";
 import Row from "./Row";
 import Text from "./Text";
 
-export default function ToolCard({
+export default function StackCard({
   isList,
-  openTool,
+  openStack,
 }: {
   isList?: boolean;
-  openTool: () => void;
+  openStack: () => void;
 }) {
   const description = `Laborum velit veniam deserunt cillum. Laborum irure in elit ad. Veniam
         nulla veniam exercitation irure dolor reprehenderit nisi ullamco do in.
@@ -26,7 +26,7 @@ export default function ToolCard({
         margin: "0.2rem",
         borderRadius: "0.4rem",
       }}
-      onClick={() => openTool()}
+      onClick={() => openStack()}
     >
       <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
         <span />

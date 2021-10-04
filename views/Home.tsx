@@ -12,7 +12,7 @@ for (let i = 0; i < 1000; i++) {
 export default function Home() {
   const [project, setProject] = useState("");
   return (
-    <Layout>
+    <Layout activePath="home">
       <Row style={{ flex: 1 }}>
         {project ? (
           <Project goBack={() => setProject("")} />
