@@ -5,27 +5,36 @@ import Scroll from "components/Scroll";
 import Stats from "components/Stats";
 import Text from "components/Text";
 import { status } from "interfaces/project";
-import React from "react";
+import React, { useState } from "react";
 import Button from "components/Button";
+import Modal from "components/Modal";
 
 export default function Projects({
   openProject,
 }: {
   openProject: (str: string) => void;
 }) {
+  const [modalVisible, setModalVisible] = useState(false);
   const list: number[] = [];
   for (let i = 0; i < 100; i++) {
     list.push(i);
   }
-
   const colors: status[] = ["doing", "done", "reviewing", "todo"];
 
   return (
     <Pane style={{ flex: 1, padding: "0.2rem" }}>
+      <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
+        Add project here
+        <Button onClick={() => setModalVisible(false)}>Close</Button>
+      </Modal>
       <Row style={{ justifyContent: "space-between" }}>
         <Text variant="h2">Projects</Text>
         <Row>
-          <Button variant="outlined" color="primary">
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => setModalVisible(true)}
+          >
             New Project
           </Button>
         </Row>

@@ -40,11 +40,14 @@ export default function ProjectCard({
         margin: "0.2rem",
         borderRadius: "0.4rem",
       }}
-      onClick={() => openProject()}
     >
       <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
         <span />
-        <Text variant="h3" style={{ cursor: "pointer" }}>
+        <Text
+          variant="h3"
+          style={{ cursor: "pointer" }}
+          onClick={() => openProject()}
+        >
           Storyx
         </Text>
         <MdCancel style={{ cursor: "pointer" }} />
