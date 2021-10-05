@@ -5,16 +5,14 @@ import Scroll from "components/Scroll";
 import Text from "components/Text";
 import React from "react";
 import Button from "components/Button";
+import { useUser } from "context";
 
 export default function Tools({
   openTool,
 }: {
   openTool: (str: string) => void;
 }) {
-  const list: number[] = [];
-  for (let i = 0; i < 100; i++) {
-    list.push(i);
-  }
+  const { tools } = useUser();
 
   return (
     <Pane style={{ flex: 1, padding: "0.2rem" }}>
@@ -28,10 +26,18 @@ export default function Tools({
       </Row>
       <Scroll
         offset={11}
-        style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          alignItems: "flex-start",
+        }}
       >
-        {list.map((item) => (
-          <ToolCard key={item} openTool={() => openTool("tool name")} />
+        {tools.map((tool) => (
+          <ToolCard
+            key={tool.id}
+            openTool={() => openTool(tool.id)}
+            tool={tool}
+          />
         ))}
       </Scroll>
     </Pane>

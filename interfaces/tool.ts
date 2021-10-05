@@ -1,6 +1,7 @@
 export default interface tool {
   id: string;
   name: string;
+  description: string;
   /**
    * 1 to 5 stars
    */

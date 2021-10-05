@@ -42,7 +42,6 @@ export default function SidebarTools({
       toolsId: tools,
     });
   };
-  console.log(currentProject);
   return (
     <Pane
       style={{

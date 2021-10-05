@@ -20,7 +20,6 @@ const Left = () => (
 );
 export default function Header() {
   const { user } = useUser();
-  console.log(user.photoURL);
   if (user.uid)
     return (
       <Appbar>

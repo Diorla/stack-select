@@ -15,7 +15,7 @@ export default function Home() {
     <Layout activePath="tool">
       <Row style={{ flex: 1 }}>
         {tool ? (
-          <Tool goBack={() => setTool("")} />
+          <Tool goBack={() => setTool("")} toolId={tool} />
         ) : (
           <Tools openTool={(tool) => setTool(tool)} />
         )}
