@@ -9,6 +9,9 @@ const Textarea = styled.textarea`
   &:focus {
     border: 1px solid ${({ theme }) => theme.palette.text.shade};
   }
+  &:invalid {
+    color: red;
+  }
 `;
 
 export default Textarea;
