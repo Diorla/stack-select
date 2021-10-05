@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import SidebarStacks from "./SidebarStacks";
-import SidebarTools from "./SidebarTools";
 import ProjectInfo from "./ProjectInfo";
+import SidebarTools from "./SidebarTools";
 
-export default function Projects({
+export default function Project({
   goBack,
   id,
 }: {
