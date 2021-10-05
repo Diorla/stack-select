@@ -11,11 +11,12 @@ for (let i = 0; i < 1000; i++) {
 
 export default function Home() {
   const [project, setProject] = useState("");
+  console.log(project);
   return (
     <Layout activePath="home">
       <Row style={{ flex: 1 }}>
         {project ? (
-          <Project goBack={() => setProject("")} />
+          <Project goBack={() => setProject("")} id={project} />
         ) : (
           <Projects openProject={(project) => setProject(project)} />
         )}

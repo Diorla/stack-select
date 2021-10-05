@@ -10,10 +10,10 @@ const NoteWrapper = styled(Pile)`
   margin: 0.2rem;
   border-radius: 0.4rem;
 `;
-export default function Note() {
+export default function Note({ value }: { value: string }) {
   return (
     <NoteWrapper>
-      <Text>Sunt eiusmod incididunt labore non voluptate anim eu.</Text>
+      <Text>{value}</Text>
       <Row style={{ justifyContent: "flex-end" }}>
         <Button variant="text">Delete</Button>
       </Row>

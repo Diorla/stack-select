@@ -10,6 +10,9 @@ import SidebarDropdown from "components/SidebarDropdown";
 import Pile from "components/Pile";
 import Textarea from "components/Textarea";
 import React, { useState } from "react";
+import { useUser } from "context";
+import createStack from "services/createStack";
+import { v4 } from "uuid";
 
 export default function SidebarStacks({
   visible,
@@ -18,15 +21,28 @@ export default function SidebarStacks({
   visible: boolean;
   openTools: (tool: string) => void;
 }) {
-  const list: number[] = [];
-  for (let i = 0; i < 100; i++) {
-    list.push(i);
-  }
+  const {
+    stacks,
+    user: { uid },
+  } = useUser();
   const [stack, setStack] = useState({
     name: "",
     description: "",
     visible: false,
   });
+  const saveStack = () => {
+    createStack(uid, {
+      ...stack,
+      id: v4(),
+      modified: Date.now(),
+    }).then(() => {
+      setStack({
+        name: "",
+        description: "",
+        visible: false,
+      });
+    });
+  };
   return (
     <Pane
       style={{
@@ -77,19 +93,11 @@ export default function SidebarStacks({
                   description: e.target.value,
                 })
               }
+              rows={4}
             />
           </Pile>
           <Row style={{ justifyContent: "space-evenly" }}>
-            <Button
-              color="success"
-              onClick={() => {
-                setStack({
-                  name: "",
-                  description: "",
-                  visible: false,
-                });
-              }}
-            >
+            <Button color="success" onClick={saveStack}>
               Save
             </Button>
             <Button
@@ -106,8 +114,12 @@ export default function SidebarStacks({
             </Button>
           </Row>
         </SidebarDropdown>
-        {list.map((item) => (
-          <StackItem key={item} openTools={() => openTools("tool name")} />
+        {stacks.map((item) => (
+          <StackItem
+            key={item.id}
+            openTools={() => openTools(item.id)}
+            stack={item}
+          />
         ))}
       </Scroll>
     </Pane>

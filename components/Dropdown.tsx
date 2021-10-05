@@ -16,12 +16,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   value: string;
 }
 
-export default function Dropdown({
-  list,
-  onChange,
-  value,
-  ...props
-}: SelectProps) {
+export default function Dropdown({ list, value, ...props }: SelectProps) {
   return (
     <Select value={value} {...props}>
       {list.map((item, idx) => (

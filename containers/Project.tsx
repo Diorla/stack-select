@@ -3,17 +3,24 @@ import SidebarStacks from "./SidebarStacks";
 import SidebarTools from "./SidebarTools";
 import ProjectInfo from "./ProjectInfo";
 
-export default function Projects({ goBack }: { goBack: () => void }) {
-  const [category, setCategory] = useState("");
-
+export default function Projects({
+  goBack,
+  id,
+}: {
+  goBack: () => void;
+  id: string;
+}) {
+  const [stackId, setStackId] = useState("");
   return (
     <>
-      <ProjectInfo goBack={goBack} />
-      <SidebarTools visible={!!category} goBack={() => setCategory("")} />
-      <SidebarStacks
-        visible={!category}
-        openTools={() => setCategory("tool name")}
+      <ProjectInfo goBack={goBack} id={id} />
+      <SidebarTools
+        visible={!!stackId}
+        stackId={stackId}
+        goBack={() => setStackId("")}
+        projectID={id}
       />
+      <SidebarStacks visible={!stackId} openTools={(val) => setStackId(val)} />
     </>
   );
 }

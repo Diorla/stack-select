@@ -15,32 +15,37 @@ import InputLabel from "components/InputLabel";
 import Textarea from "components/Textarea";
 import createProject from "services/createProject";
 import { v4 } from "uuid";
+import Dropdown from "components/Dropdown";
 
 export default function Projects({
   openProject,
 }: {
   openProject: (str: string) => void;
 }) {
-  const [project, setProject] = useState({
+  const [project, setProject] = useState<{
+    visible: boolean;
+    name: string;
+    description: string;
+    status: status;
+  }>({
     visible: false,
     name: "",
     description: "",
+    status: "todo",
   });
   const { projects, user } = useUser();
   const doing = projects.filter((project) => project.status === "doing");
   const done = projects.filter((project) => project.status === "done");
   const addProject = () => {
-    // status, tools, created, modified, notes
     createProject(user.uid, {
       ...project,
       id: v4(),
-      status: "todo",
       modified: Date.now(),
-      tools: [],
-      created: Date.now(),
+      toolsId: [],
       notes: [],
     }).then(() =>
       setProject({
+        ...project,
         visible: false,
         name: "",
         description: "",
@@ -71,6 +76,21 @@ export default function Projects({
               setProject({ ...project, description: e.target.value })
             }
             rows={4}
+          />
+          <InputLabel htmlFor="Status">Status</InputLabel>
+          <Dropdown
+            id="Status"
+            style={{
+              textTransform: "capitalize",
+            }}
+            list={["todo", "doing", "done", "reviewing"]}
+            value={project.status}
+            onChange={(e) =>
+              setProject({
+                ...project,
+                status: e.target.value as status,
+              })
+            }
           />
           <Row style={{ justifyContent: "space-evenly" }}>
             <Button onClick={addProject} color="success">
@@ -105,12 +125,16 @@ export default function Projects({
       {projects.length ? (
         <Scroll
           offset={11}
-          style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            alignItems: "flex-start",
+          }}
         >
           {projects.map((project) => (
             <ProjectCard
               key={project.id}
-              openProject={() => openProject(project.id)}
+              openProject={openProject}
               project={project}
             />
           ))}

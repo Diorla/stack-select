@@ -6,7 +6,12 @@ export default function Stacks({ goBack }: { goBack: () => void }) {
   return (
     <>
       <StackInfo goBack={goBack} />
-      <SidebarTools visible={true} goBack={() => null} />
+      <SidebarTools
+        visible={true}
+        goBack={() => null}
+        stackId={""}
+        projectID={""}
+      />
     </>
   );
 }

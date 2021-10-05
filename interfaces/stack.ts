@@ -1,7 +1,6 @@
 export default interface stack {
+  id: string;
   name: string;
   description: string;
-  tools: string[];
-  create: number;
   modified: number;
 }

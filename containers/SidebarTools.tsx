@@ -9,19 +9,39 @@ import ToolCard from "components/ToolItem";
 import React, { useState } from "react";
 import { MdArrowBack } from "react-icons/md";
 import SidebarCreateTool from "./SidebarCreateTool";
+import { useUser } from "context";
+import toggleItemInList from "scripts/toggleItemInList";
+import createProject from "services/createProject";
 
 export default function SidebarTools({
   visible,
   goBack,
+  stackId,
+  projectID,
 }: {
   visible: boolean;
   goBack: () => void;
+  stackId: string;
+  projectID: string;
 }) {
-  const list: number[] = [];
-  for (let i = 0; i < 20; i++) {
-    list.push(i);
-  }
+  const {
+    tools,
+    projects,
+    user: { uid },
+  } = useUser();
+  const currentTools = tools.filter((tool) => tool.stackId === stackId);
+  const currentProject = projects.filter(
+    (project) => project.id === projectID
+  )[0];
   const [createToolVisible, setCreateToolVisible] = useState(false);
+
+  const toggleProjectTools = (id: string) => {
+    const tools = toggleItemInList(currentProject.toolsId, id);
+    createProject(uid, {
+      ...currentProject,
+      toolsId: tools,
+    });
+  };
   return (
     <Pane
       style={{
@@ -44,9 +64,15 @@ export default function SidebarTools({
         <SidebarCreateTool
           visible={createToolVisible}
           close={() => setCreateToolVisible(false)}
+          stackId={stackId}
         />
-        {list.map((item) => (
-          <ToolCard key={item} checked={!!(item % 4)} />
+        {currentTools.map((item) => (
+          <ToolCard
+            key={item.id}
+            onCheck={(id) => toggleProjectTools(id)}
+            checked={currentProject.toolsId.includes(item.id)}
+            tool={item}
+          />
         ))}
       </Scroll>
     </Pane>

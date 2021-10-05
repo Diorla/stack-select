@@ -1,5 +1,4 @@
 import firebase from "init/clientApp";
-import project from "interfaces/project";
 
 export default async function deleteProject(
   userId: string,

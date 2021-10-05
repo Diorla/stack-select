@@ -10,24 +10,34 @@ import Pile from "components/Pile";
 import Text from "components/Text";
 import React from "react";
 import { MdArrowBack } from "react-icons/md";
+import { useUser } from "context";
 
-export default function ProjectInfo({ goBack }: { goBack: () => void }) {
-  const list: number[] = [];
-  for (let i = 0; i < 20; i++) {
-    list.push(i);
-  }
-  const notes: number[] = [];
-  for (let i = 0; i < 5; i++) {
-    notes.push(i);
-  }
+export default function ProjectInfo({
+  goBack,
+  id,
+}: {
+  goBack: () => void;
+  id: string;
+}) {
+  const { projects, tools } = useUser();
+  const currentProject = projects.filter((item) => item.id === id)[0];
+  const { name, description, toolsId, notes } = currentProject;
+  const projectTools = tools.filter((tool) => toolsId.includes(tool.id));
   return (
-    <Pane style={{ flex: 1, padding: "0.2rem", height: "calc(100vh - 8rem)" }}>
+    <Pane
+      style={{
+        flex: 1,
+        padding: "0.2rem",
+        height: "calc(100vh - 8rem)",
+        width: "100%",
+      }}
+    >
       <Row style={{ justifyContent: "space-between" }}>
         <Text>
           <span onClick={goBack} style={{ cursor: "pointer" }}>
             Projects
           </span>
-          /Vue-js
+          /{name}
         </Text>
         <Row
           style={{ alignItems: "center", cursor: "pointer" }}
@@ -37,26 +47,23 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
         </Row>
       </Row>
       <Scroll offset={6}>
-        <Pile>
-          <Text variant="h3">Vue js</Text>
-          <Text>
-            Id exercitation officia est esse et nulla nostrud et dolor fugiat
-            exercitation aute anim. Reprehenderit minim Lorem ea velit nisi
-            culpa nulla occaecat adipisicing ipsum. Deserunt sint aliqua culpa
-            pariatur. Sit proident aliquip nisi minim et commodo ut elit. Non
-            voluptate est ex deserunt. Commodo minim ipsum laborum pariatur.
-            Quis fugiat ea laborum cupidatat in qui.
-          </Text>
+        <Pile style={{ width: "100%" }}>
+          <Text variant="h3">{name}</Text>
+          <Text>{description}</Text>
           <Divider size={0} style={{ marginBottom: "1rem" }} />
           <InputLabel style={{ fontWeight: "bold" }}>Status</InputLabel>
           <Dropdown list={["Completed", "Ongoing"]} value="Complete" />
           <Text variant="h4">Tools</Text>
           <Row style={{ flexWrap: "wrap" }}>
-            {list.map((item) => (
-              <Text key={item} style={{ marginRight: "0.4rem" }}>
-                -Tool{item}
-              </Text>
-            ))}
+            {projectTools.length ? (
+              projectTools.map((item) => (
+                <Text key={item.id} style={{ marginRight: "0.4rem" }}>
+                  {item.name}
+                </Text>
+              ))
+            ) : (
+              <Text>No tools added yet</Text>
+            )}
           </Row>
           <Pile style={{ alignItems: "center", marginTop: "0.4rem" }}>
             <Button style={{ marginBottom: "0.2rem" }}>Add Note</Button>
@@ -67,8 +74,8 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
                 justifyContent: "space-evenly",
               }}
             >
-              {notes.map((item) => (
-                <Note key={item} />
+              {notes.map((item, idx) => (
+                <Note key={idx} value={item} />
               ))}
             </Row>
           </Pile>

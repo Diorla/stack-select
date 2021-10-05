@@ -2,7 +2,7 @@ import { useUser } from "context";
 import color from "interfaces/color";
 import project, { status } from "interfaces/project";
 import { useState } from "react";
-import { MdCancel } from "react-icons/md";
+import { MdCancel, MdDelete } from "react-icons/md";
 import deleteProject from "services/deleteProject";
 import Button from "./Button";
 import Card from "./Card";
@@ -22,14 +22,14 @@ export default function ProjectCard({
   openProject,
   project,
 }: {
-  openProject: () => void;
+  openProject: (id: string) => void;
   project: project;
 }) {
   const {
     user: { projectView, uid },
   } = useUser();
   const isList = projectView === "list";
-  const { name, description, tools, status } = project;
+  const { name, description, toolsId, status } = project;
   let color: color = "primary";
   if (status === "doing") color = "warning";
   if (status === "done") color = "success";
@@ -69,19 +69,20 @@ export default function ProjectCard({
         </Pile>
       </Modal>
       <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
-        <span />
         <Text
           variant="h3"
           style={{ cursor: "pointer" }}
-          onClick={() => openProject()}
+          onClick={() => openProject(project.id)}
         >
           {name}
         </Text>
-        <MdCancel
-          style={{ cursor: "pointer", fontSize: "3.6rem" }}
-          onClick={() => setDeleteModal(true)}
-        />
       </Row>
+      <Text
+        variant="caption"
+        style={{ fontStyle: "italic", paddingLeft: "0.2rem" }}
+      >
+        {sx[status]}
+      </Text>
       <Text style={{ padding: "0.4rem" }}>
         {description.length > 100
           ? description.slice(0, 100) + "..."
@@ -94,10 +95,11 @@ export default function ProjectCard({
           padding: "0.4rem",
         }}
       >
-        <Text variant="caption" style={{ fontStyle: "italic" }}>
-          {sx[status]}
-        </Text>
-        <Text variant="caption">{tools.length} tools</Text>
+        <Text variant="caption">{toolsId.length} tools</Text>
+        <MdDelete
+          style={{ cursor: "pointer", height: 24, width: 24 }}
+          onClick={() => setDeleteModal(true)}
+        />
       </Row>
     </Card>
   );
