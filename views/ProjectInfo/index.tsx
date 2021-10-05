@@ -8,7 +8,7 @@ import Row from "components/Row";
 import Scroll from "components/Scroll";
 import Pile from "components/Pile";
 import Text from "components/Text";
-import { useState } from "react";
+import React, { useState } from "react";
 import { MdArrowBack } from "react-icons/md";
 import { useUser } from "context";
 import { status } from "interfaces/project";
@@ -23,6 +23,7 @@ import addNote from "./addNote";
 import Editable from "components/Editable";
 import updateName from "./updateName";
 import updateDesc from "./updateDesc";
+import EditableTextArea from "components/EditableTextArea";
 
 export default function ProjectInfo({
   goBack,
@@ -83,7 +84,7 @@ export default function ProjectInfo({
             }
             editable={editName}
           />
-          <Editable
+          <EditableTextArea
             initialValue={description}
             toggleEdit={(currentDesc) =>
               updateDesc(

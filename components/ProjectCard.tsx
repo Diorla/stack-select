@@ -1,8 +1,8 @@
 import { useUser } from "context";
 import color from "interfaces/color";
-import project, { status } from "interfaces/project";
+import project from "interfaces/project";
 import { useState } from "react";
-import { MdCancel, MdDelete } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import deleteProject from "services/deleteProject";
 import Button from "./Button";
 import Card from "./Card";

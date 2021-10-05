@@ -1,21 +1,37 @@
-import color from "interfaces/color";
-import { MdCancel } from "react-icons/md";
+import { useUser } from "context";
+import stack from "interfaces/stack";
+import React, { useState } from "react";
+import { MdDelete } from "react-icons/md";
+import deleteStack from "services/deleteStack";
+import Button from "./Button";
 import Card from "./Card";
 import Divider from "./Divider";
+import Modal from "./Modal";
+import Pile from "./Pile";
 import Row from "./Row";
 import Text from "./Text";
 
 export default function StackCard({
   isList,
   openStack,
+  stack,
 }: {
   isList?: boolean;
   openStack: () => void;
+  stack: stack;
 }) {
-  const description = `Laborum velit veniam deserunt cillum. Laborum irure in elit ad. Veniam
-        nulla veniam exercitation irure dolor reprehenderit nisi ullamco do in.
-        Sunt magna nisi velit sint magna anim pariatur velit. Ipsum est
-        reprehenderit officia enim.`;
+  const { tools } = useUser();
+  const { name, description, id } = stack;
+  const stackTools = tools.filter((tool) => tool.stackId === id);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const {
+    user: { uid },
+  } = useUser();
+
+  const deleteThis = () => {
+    deleteStack(uid, stack.id).then(() => setDeleteModal(false));
+  };
+
   return (
     <Card
       elevation={1}
@@ -26,27 +42,49 @@ export default function StackCard({
         margin: "0.2rem",
         borderRadius: "0.4rem",
       }}
-      onClick={() => openStack()}
     >
-      <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
-        <span />
+      <Modal visible={deleteModal} onClose={() => setDeleteModal(false)}>
+        <Pile>
+          <Text variant="h4" style={{ textAlign: "center" }}>
+            Delete <u>{stack.name}</u>
+          </Text>
+          <Text>Are you sure?</Text>
+          <Text>This action cannot be undone</Text>
+          <Row style={{ justifyContent: "space-evenly" }}>
+            <Button onClick={deleteThis} color="error">
+              Delete
+            </Button>
+            <Button onClick={() => setDeleteModal(false)} color="info">
+              Cancel
+            </Button>
+          </Row>
+        </Pile>
+      </Modal>
+      <Row
+        style={{ justifyContent: "space-between", padding: "0.4rem" }}
+        onClick={openStack}
+      >
         <Text variant="h3" style={{ cursor: "pointer" }}>
-          Storyx
+          {name}
         </Text>
-        <MdCancel style={{ cursor: "pointer" }} />
       </Row>
       <Text style={{ padding: "0.4rem" }}>
         {description.length > 100
           ? description.slice(0, 100) + "..."
           : description}
       </Text>
+      <Divider size={1} color="primary" />
       <Row
         style={{
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
           padding: "0.4rem",
         }}
       >
-        <Text variant="caption">12 tools</Text>
+        <Text variant="caption">{stackTools.length} tools</Text>
+        <MdDelete
+          style={{ cursor: "pointer", height: 24, width: 24 }}
+          onClick={() => setDeleteModal(true)}
+        />
       </Row>
     </Card>
   );

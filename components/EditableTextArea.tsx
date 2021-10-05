@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import Input from "./Input";
 import Text from "./Text";
+import Textarea from "./Textarea";
 
-export default function Editable({
+export default function EditableTextArea({
   editable,
   initialValue,
   toggleEdit,
@@ -26,18 +26,20 @@ export default function Editable({
     | "overline";
 }) {
   const [value, setValue] = useState(initialValue);
-  const ref = useRef<HTMLInputElement | null>(null);
+  const ref = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     ref?.current?.focus();
   });
   return editable ? (
-    <Input
+    <Textarea
       value={value}
       onChange={(e) => setValue(e.target.value)}
       onBlur={() => toggleEdit(value)}
       ref={ref}
       onKeyDown={(e) => (e.key === "Enter" ? toggleEdit(value) : null)}
+      style={{ width: "100%" }}
+      rows={4}
     />
   ) : (
     <Text

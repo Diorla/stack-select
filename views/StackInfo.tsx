@@ -8,18 +8,45 @@ import Row from "components/Row";
 import Scroll from "components/Scroll";
 import Pile from "components/Pile";
 import Text from "components/Text";
-import React from "react";
+import React, { useState } from "react";
 import { MdArrowBack } from "react-icons/md";
+import { useUser } from "context";
+import Editable from "components/Editable";
+import createStack from "services/createStack";
+import EditableTextArea from "components/EditableTextArea";
 
-export default function ProjectInfo({ goBack }: { goBack: () => void }) {
-  const list: number[] = [];
-  for (let i = 0; i < 20; i++) {
-    list.push(i);
-  }
-  const notes: number[] = [];
-  for (let i = 0; i < 5; i++) {
-    notes.push(i);
-  }
+export default function StackInfo({
+  goBack,
+  stackId,
+}: {
+  goBack: () => void;
+  stackId: string;
+}) {
+  const {
+    stacks,
+    user: { uid },
+  } = useUser();
+  const currentStack = stacks.filter((stack) => stack.id === stackId)[0];
+  const { name, description } = currentStack;
+  const [editName, setEditName] = useState(false);
+  const [editDesc, setEditDesc] = useState(false);
+
+  const updateName = (val: string) => {
+    if (val !== name)
+      createStack(uid, {
+        ...currentStack,
+        name: val,
+      });
+    setEditName(!editName);
+  };
+  const updateDesc = (val: string) => {
+    if (val !== name)
+      createStack(uid, {
+        ...currentStack,
+        description: val,
+      });
+    setEditDesc(!editDesc);
+  };
   return (
     <Pane style={{ flex: 1, padding: "0.2rem", height: "calc(100vh - 8rem)" }}>
       <Row style={{ justifyContent: "space-between" }}>
@@ -27,7 +54,7 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
           <span onClick={goBack} style={{ cursor: "pointer" }}>
             Stack
           </span>
-          /Frontend
+          /{name}
         </Text>
         <Row
           style={{ alignItems: "center", cursor: "pointer" }}
@@ -37,16 +64,18 @@ export default function ProjectInfo({ goBack }: { goBack: () => void }) {
         </Row>
       </Row>
       <Scroll offset={6}>
-        <Pile>
-          <Text variant="h3">Frontend</Text>
-          <Text>
-            Id exercitation officia est esse et nulla nostrud et dolor fugiat
-            exercitation aute anim. Reprehenderit minim Lorem ea velit nisi
-            culpa nulla occaecat adipisicing ipsum. Deserunt sint aliqua culpa
-            pariatur. Sit proident aliquip nisi minim et commodo ut elit. Non
-            voluptate est ex deserunt. Commodo minim ipsum laborum pariatur.
-            Quis fugiat ea laborum cupidatat in qui.
-          </Text>
+        <Pile style={{ width: "90%" }}>
+          <Editable
+            variant="h3"
+            editable={editName}
+            toggleEdit={(val) => updateName(val)}
+            initialValue={name}
+          />
+          <EditableTextArea
+            editable={editDesc}
+            toggleEdit={(val) => updateDesc(val)}
+            initialValue={description}
+          />
         </Pile>
       </Scroll>
     </Pane>

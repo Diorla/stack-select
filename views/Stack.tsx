@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import SidebarTools from "./SidebarTools";
 import StackInfo from "./StackInfo";
 
-export default function Stack({ goBack }: { goBack: () => void }) {
+export default function Stack({
+  goBack,
+  stackId,
+}: {
+  goBack: () => void;
+  stackId: string;
+}) {
   return (
     <>
-      <StackInfo goBack={goBack} />
+      <StackInfo goBack={goBack} stackId={stackId} />
       <SidebarTools
         visible={true}
         goBack={() => null}
-        stackId={""}
+        stackId={stackId}
         projectID={""}
       />
     </>

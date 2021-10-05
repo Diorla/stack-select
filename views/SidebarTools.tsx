@@ -5,7 +5,7 @@ import Row from "components/Row";
 import Scroll from "components/Scroll";
 import SearchInput from "components/SearchInput";
 import Pile from "components/Pile";
-import ToolCard from "components/ToolItem";
+import ToolItem from "components/ToolItem";
 import React, { useState } from "react";
 import { MdArrowBack } from "react-icons/md";
 import SidebarCreateTool from "./SidebarCreateTool";
@@ -42,6 +42,7 @@ export default function SidebarTools({
       toolsId: tools,
     });
   };
+  console.log(currentProject);
   return (
     <Pane
       style={{
@@ -49,7 +50,14 @@ export default function SidebarTools({
         display: visible ? "initial" : "none",
       }}
     >
-      <Row style={{ alignItems: "center", cursor: "pointer" }} onClick={goBack}>
+      <Row
+        style={{
+          alignItems: "center",
+          cursor: "pointer",
+          opacity: !currentProject ? 0 : 1,
+        }}
+        onClick={goBack}
+      >
         <MdArrowBack style={{ fontSize: "1.5rem" }} /> Back
       </Row>
       <Pile style={{ justifyContent: "center", marginTop: "0.4rem" }}>
@@ -67,11 +75,12 @@ export default function SidebarTools({
           stackId={stackId}
         />
         {currentTools.map((item) => (
-          <ToolCard
+          <ToolItem
             key={item.id}
             onCheck={(id) => toggleProjectTools(id)}
-            checked={currentProject.toolsId.includes(item.id)}
+            checked={currentProject?.toolsId.includes(item.id)}
             tool={item}
+            hideCheckbox={!currentProject}
           />
         ))}
       </Scroll>

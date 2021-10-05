@@ -10,15 +10,18 @@ import { MdDelete } from "react-icons/md";
 import deleteTool from "services/deleteTool";
 import Button from "./Button";
 import Modal from "./Modal";
+import createTool from "services/createTool";
 
-export default function ToolCard({
+export default function ToolItem({
   checked,
   tool,
   onCheck,
+  hideCheckbox,
 }: {
   checked: boolean;
   tool: tool;
   onCheck: (id: string) => void;
+  hideCheckbox: boolean;
 }) {
   const {
     user: { uid },
@@ -27,6 +30,12 @@ export default function ToolCard({
 
   const deleteThis = () => {
     deleteTool(uid, tool.id).then(() => setDeleteModal(false));
+  };
+  const updateRating = (rating: number) => {
+    createTool(uid, {
+      ...tool,
+      rating,
+    });
   };
   return (
     <Pile style={{ width: "100%", borderBottom: "1px solid silver" }}>
@@ -54,10 +63,12 @@ export default function ToolCard({
         }}
       >
         <Text>{tool.name}</Text>
-        <Radio checked={checked} onClick={() => onCheck(tool.id)} />
+        {hideCheckbox ? null : (
+          <Radio checked={checked} onClick={() => onCheck(tool.id)} />
+        )}
       </Row>
       <Row style={{ justifyContent: "space-between", alignItems: "baseline" }}>
-        <Rating value={4} onChange={() => null} />
+        <Rating value={tool.rating} onChange={(value) => updateRating(value)} />
         <MdDelete
           style={{ cursor: "pointer", height: 24, width: 24 }}
           onClick={() => setDeleteModal(true)}
