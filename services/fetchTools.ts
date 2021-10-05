@@ -11,7 +11,9 @@ export default async function fetchTools(
 ): Promise<void> {
   const db = firebase.firestore();
 
-  const collectionRef = db.collection(`users/${userId}/tools`);
+  const collectionRef = db
+    .collection(`users/${userId}/tools`)
+    .orderBy("name", "asc");
 
   collectionRef.onSnapshot((querySnapshot) => {
     const toolList: any[] = [];

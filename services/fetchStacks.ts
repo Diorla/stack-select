@@ -11,7 +11,9 @@ export default async function fetchStacks(
 ): Promise<void> {
   const db = firebase.firestore();
 
-  const collectionRef = db.collection(`users/${userId}/stacks`);
+  const collectionRef = db
+    .collection(`users/${userId}/stacks`)
+    .orderBy("name", "asc");
 
   collectionRef.onSnapshot((querySnapshot) => {
     const stackList: any[] = [];

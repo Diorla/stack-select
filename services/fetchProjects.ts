@@ -11,7 +11,9 @@ export default async function fetchProjects(
 ): Promise<void> {
   const db = firebase.firestore();
 
-  const collectionRef = db.collection(`users/${userId}/projects`);
+  const collectionRef = db
+    .collection(`users/${userId}/projects`)
+    .orderBy("name", "asc");
 
   collectionRef.onSnapshot((querySnapshot) => {
     const projectList: any[] = [];
