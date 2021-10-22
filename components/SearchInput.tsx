@@ -16,6 +16,7 @@ const Input = styled.input`
   font-size: 1.2rem;
   background: transparent;
   border-radius: 0.6rem;
+  padding: 0.4rem;
 `;
 
 const Icon = styled(FaSearch)`

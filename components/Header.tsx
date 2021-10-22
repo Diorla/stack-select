@@ -9,11 +9,12 @@ import SearchInput from "./SearchInput";
 import Hidden from "./Hidden";
 import Text from "./Text";
 import { useUser } from "context";
+import getInitials from "scripts/getInitials";
 
 const Left = () => (
   <Row>
     <Logo />
-    <Hidden xsDown>
+    <Hidden mdDown>
       <Title />
     </Hidden>
   </Row>
@@ -28,8 +29,14 @@ export default function Header() {
           <SearchInput />
         </Hidden>
         <Row>
-          <Avatar src={user.photoURL} alt="user image" />
-          <Text>{user.displayName.slice(0, 10)}</Text>
+          {user.photoURL ? (
+            <Avatar src={user.photoURL} alt="user image" />
+          ) : (
+            <Avatar title={getInitials(user.displayName)} />
+          )}
+          <Hidden smDown>
+            <Text>{user.displayName.slice(0, 10)}</Text>
+          </Hidden>
         </Row>
       </Appbar>
     );

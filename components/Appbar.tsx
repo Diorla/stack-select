@@ -5,6 +5,7 @@ const Appbar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0.2rem;
+  align-items: center;
 `;
 
 export default Appbar;
