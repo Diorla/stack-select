@@ -1,11 +1,11 @@
 import Pane from "components/Pane";
 import ToolCard from "components/ToolCard";
 import Row from "components/Row";
-import Scroll from "components/Scroll";
 import Text from "components/Text";
 import React from "react";
 import Button from "components/Button";
 import { useUser } from "context";
+import ViewWrapper from "components/ViewWrapper";
 
 export default function Tools({
   openTool,
@@ -24,14 +24,7 @@ export default function Tools({
           </Button>
         </Row>
       </Row>
-      <Scroll
-        offset={11}
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "flex-start",
-        }}
-      >
+      <ViewWrapper offset={11}>
         {tools.map((tool) => (
           <ToolCard
             key={tool.id}
@@ -39,7 +32,7 @@ export default function Tools({
             tool={tool}
           />
         ))}
-      </Scroll>
+      </ViewWrapper>
     </Pane>
   );
 }

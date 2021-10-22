@@ -1,7 +1,6 @@
 import Pane from "components/Pane";
 import ProjectCard from "components/ProjectCard";
 import Row from "components/Row";
-import Scroll from "components/Scroll";
 import Stats from "components/Stats";
 import Text from "components/Text";
 import { status } from "interfaces/project";
@@ -16,6 +15,7 @@ import Textarea from "components/Textarea";
 import createProject from "services/createProject";
 import { v4 } from "uuid";
 import Dropdown from "components/Dropdown";
+import ViewWrapper from "components/ViewWrapper";
 
 export default function Projects({
   openProject,
@@ -123,14 +123,7 @@ export default function Projects({
         <Stats value={projects.length} title="Total" />
       </Row>
       {projects.length ? (
-        <Scroll
-          offset={11}
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            alignItems: "flex-start",
-          }}
-        >
+        <ViewWrapper offset={11}>
           {projects.map((project) => (
             <ProjectCard
               key={project.id}
@@ -138,7 +131,7 @@ export default function Projects({
               project={project}
             />
           ))}
-        </Scroll>
+        </ViewWrapper>
       ) : (
         <Row style={{ justifyContent: "center" }}>No project created</Row>
       )}

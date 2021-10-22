@@ -69,14 +69,18 @@ export default function ToolCard({
         </Pile>
       </Modal>
       <Row
-        style={{ justifyContent: "space-between", padding: "0.4rem" }}
+        style={{
+          justifyContent: "space-between",
+          padding: "0.4rem",
+          // display: "flex"
+        }}
         onClick={openTool}
       >
         <Text variant="h3" style={{ cursor: "pointer" }}>
           {name}
         </Text>
       </Row>
-      <Text style={{ padding: "0.4rem" }}>
+      <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
         {description.length > 100
           ? description.slice(0, 100) + "..."
           : description}

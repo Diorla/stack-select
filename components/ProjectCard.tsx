@@ -83,7 +83,7 @@ export default function ProjectCard({
       >
         {sx[status]}
       </Text>
-      <Text style={{ padding: "0.4rem" }}>
+      <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
         {description.length > 100
           ? description.slice(0, 100) + "..."
           : description}

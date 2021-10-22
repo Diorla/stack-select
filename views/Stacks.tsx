@@ -1,12 +1,10 @@
 import Pane from "components/Pane";
 import StackCard from "components/StackCard";
 import Row from "components/Row";
-import Scroll from "components/Scroll";
 import Text from "components/Text";
 import React, { useState } from "react";
 import Button from "components/Button";
 import { useUser } from "context";
-import Dropdown from "components/Dropdown";
 import Input from "components/Input";
 import InputLabel from "components/InputLabel";
 import Modal from "components/Modal";
@@ -14,6 +12,7 @@ import Pile from "components/Pile";
 import Textarea from "components/Textarea";
 import createStack from "services/createStack";
 import { v4 } from "uuid";
+import ViewWrapper from "components/ViewWrapper";
 
 export default function Stacks({
   openStack,
@@ -93,14 +92,7 @@ export default function Stacks({
           </Button>
         </Row>
       </Row>
-      <Scroll
-        offset={11}
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "flex-start",
-        }}
-      >
+      <ViewWrapper offset={11}>
         {stacks.map((stack) => (
           <StackCard
             key={stack.id}
@@ -108,7 +100,7 @@ export default function Stacks({
             stack={stack}
           />
         ))}
-      </Scroll>
+      </ViewWrapper>
     </Pane>
   );
 }
