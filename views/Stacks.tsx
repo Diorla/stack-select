@@ -43,7 +43,14 @@ export default function Stacks({
     );
   };
   return (
-    <Pane style={{ flex: 1, padding: "0.2rem" }}>
+    <Pane
+      style={{
+        flex: 1,
+        padding: "0.2rem",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Modal
         visible={stack.visible}
         onClose={() => setStack({ ...stack, visible: false })}
@@ -92,7 +99,7 @@ export default function Stacks({
           </Button>
         </Row>
       </Row>
-      <ViewWrapper offset={11}>
+      <ViewWrapper>
         {stacks.map((stack) => (
           <StackCard
             key={stack.id}

@@ -8,6 +8,7 @@ const Styled = styled.div`
   align-items: center;
   border-radius: 0.4rem;
   background: white;
+  width: clamp(180px, 40%, 320px);
 `;
 const Input = styled.input`
   border: none;
@@ -26,7 +27,8 @@ const Icon = styled(FaSearch)`
   background: transparent;
   border-radius: 0.6rem;
 `;
-export default function SearchInput() {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+export default function SearchInput(props: InputProps) {
   const ref = useRef<HTMLInputElement | null>(null);
   const [isFocus, setIsFocus] = useState(false);
   const border = isFocus ? "1px solid #999" : "1px solid #ccc";
@@ -34,6 +36,7 @@ export default function SearchInput() {
     <Styled style={{ border }}>
       <Icon onClick={() => ref?.current?.focus()} />
       <Input
+        {...props}
         type="search"
         placeholder="Search"
         ref={ref}

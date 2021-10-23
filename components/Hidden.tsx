@@ -1,5 +1,4 @@
 import useMedia from "hooks/useMedia";
-import { useEffect, useState } from "react";
 import breakpoints from "theme/breakpoints";
 export default function Hidden({
   children,

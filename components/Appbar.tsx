@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-const Appbar = styled.div`
+const AppBar = styled.div`
   flex-direction: row;
   display: flex;
   justify-content: space-between;
-  padding: 0.2rem;
   align-items: center;
+  height: 40px;
+  width: 100%;
 `;
 
-export default Appbar;
+export default AppBar;

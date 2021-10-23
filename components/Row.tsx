@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Row = styled.div`
-  flex-direction: row;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: stretch;
 `;
 
 export default Row;

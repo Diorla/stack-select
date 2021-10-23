@@ -1,7 +1,8 @@
 import { useUser } from "context";
 import color from "interfaces/color";
 import project from "interfaces/project";
-import { useState } from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import deleteProject from "services/deleteProject";
 import Button from "./Button";
@@ -18,13 +19,7 @@ const sx = {
   reviewing: "In review",
   todo: "Not started",
 };
-export default function ProjectCard({
-  openProject,
-  project,
-}: {
-  openProject: (id: string) => void;
-  project: project;
-}) {
+export default function ProjectCard({ project }: { project: project }) {
   const {
     user: { projectView, uid },
   } = useUser();
@@ -69,13 +64,11 @@ export default function ProjectCard({
         </Pile>
       </Modal>
       <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
-        <Text
-          variant="h3"
-          style={{ cursor: "pointer" }}
-          onClick={() => openProject(project.id)}
-        >
-          {name}
-        </Text>
+        <Link href={`project/${project.id}`}>
+          <Text variant="h3" style={{ cursor: "pointer" }}>
+            {name}
+          </Text>
+        </Link>
       </Row>
       <Text
         variant="caption"

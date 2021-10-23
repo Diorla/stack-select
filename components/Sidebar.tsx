@@ -3,16 +3,21 @@ import { FaHome, FaTools } from "react-icons/fa";
 import { GrStackOverflow } from "react-icons/gr";
 import { MdSettings } from "react-icons/md";
 import SidebarIcon from "./SidebarIcon";
-import Pile from "./Pile";
 import Link from "next/link";
+import styled from "styled-components";
+import path from "interfaces/path";
 
-export default function Sidebar({
-  activePath,
-}: {
-  activePath: "home" | "stack" | "tool" | "settings";
-}) {
+const Styled = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 40px;
+  align-items: center;
+`;
+
+export default function Sidebar({ activePath }: { activePath: path }) {
   return (
-    <Pile>
+    <Styled>
       <Link href="/">
         <a>
           <SidebarIcon icon={<FaHome />} active={activePath === "home"} />
@@ -39,6 +44,6 @@ export default function Sidebar({
           />
         </a>
       </Link>
-    </Pile>
+    </Styled>
   );
 }

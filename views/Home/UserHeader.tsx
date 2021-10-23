@@ -1,27 +1,35 @@
-import Pane from "components/Pane";
-import ProjectCard from "components/ProjectCard";
-import Row from "components/Row";
-import Stats from "components/Stats";
-import Text from "components/Text";
-import { status } from "interfaces/project";
 import React, { useState } from "react";
-import Button from "components/Button";
-import Modal from "components/Modal";
+import Row from "components/Row";
 import { useUser } from "context";
-import Pile from "components/Pile";
+import Stats from "components/Stats";
+import { status } from "interfaces/project";
+import Hidden from "components/Hidden";
+import Button from "components/Button";
+import Dropdown from "components/Dropdown";
 import Input from "components/Input";
 import InputLabel from "components/InputLabel";
+import Modal from "components/Modal";
+import Pile from "components/Pile";
 import Textarea from "components/Textarea";
+import Text from "components/Text";
 import createProject from "services/createProject";
 import { v4 } from "uuid";
-import Dropdown from "components/Dropdown";
-import ViewWrapper from "components/ViewWrapper";
 
-export default function Projects({
-  openProject,
+export default function UserHeader({
+  onClick,
+  status,
 }: {
-  openProject: (str: string) => void;
+  onClick: (status: status | "") => void;
+  status: status | "";
 }) {
+  const {
+    projects,
+    user: { uid },
+  } = useUser();
+  const doing = projects.filter((item) => item.status === "doing");
+  const done = projects.filter((item) => item.status === "done");
+  const todo = projects.filter((item) => item.status === "todo");
+  const reviewing = projects.filter((item) => item.status === "reviewing");
   const [project, setProject] = useState<{
     visible: boolean;
     name: string;
@@ -33,11 +41,8 @@ export default function Projects({
     description: "",
     status: "todo",
   });
-  const { projects, user } = useUser();
-  const doing = projects.filter((project) => project.status === "doing");
-  const done = projects.filter((project) => project.status === "done");
   const addProject = () => {
-    createProject(user.uid, {
+    createProject(uid, {
       ...project,
       id: v4(),
       modified: Date.now(),
@@ -53,7 +58,14 @@ export default function Projects({
     );
   };
   return (
-    <Pane style={{ flex: 1, padding: "0.2rem" }}>
+    <Row
+      style={{
+        alignItems: "center",
+        justifyContent: "space-between",
+        flex: 1,
+        paddingRight: 4,
+      }}
+    >
       <Modal
         visible={project.visible}
         onClose={() => setProject({ ...project, visible: false })}
@@ -105,36 +117,50 @@ export default function Projects({
           </Row>
         </Pile>
       </Modal>
-      <Row style={{ justifyContent: "space-between" }}>
-        <Text variant="h2">Projects</Text>
-        <Row>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => setProject({ ...project, visible: true })}
-          >
-            New Project
-          </Button>
-        </Row>
-      </Row>
       <Row>
-        <Stats value={doing.length} title="In progress" />
-        <Stats value={done.length} title="Completed" />
-        <Stats value={projects.length} title="Total" />
+        <Hidden smDown>
+          <Stats
+            active={status === "todo"}
+            value={todo.length}
+            title="Not started"
+            onClick={() => onClick("todo")}
+          />
+        </Hidden>
+        <Stats
+          active={status === "doing"}
+          value={doing.length}
+          title="In progress"
+          onClick={() => onClick("doing")}
+        />
+        <Hidden mdDown>
+          <Stats
+            active={status === "reviewing"}
+            value={reviewing.length}
+            title="Under review"
+            onClick={() => onClick("reviewing")}
+          />
+        </Hidden>
+        <Hidden smDown>
+          <Stats
+            active={status === "done"}
+            value={done.length}
+            title="Completed"
+            onClick={() => onClick("done")}
+          />
+        </Hidden>
+        <Stats
+          value={projects.length}
+          title="Total"
+          onClick={() => onClick("")}
+        />
       </Row>
-      {projects.length ? (
-        <ViewWrapper offset={11}>
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              openProject={openProject}
-              project={project}
-            />
-          ))}
-        </ViewWrapper>
-      ) : (
-        <Row style={{ justifyContent: "center" }}>No project created</Row>
-      )}
-    </Pane>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={() => setProject({ ...project, visible: true })}
+      >
+        New project
+      </Button>
+    </Row>
   );
 }
