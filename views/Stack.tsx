@@ -1,5 +1,4 @@
 import React from "react";
-import SidebarTools from "./SidebarTools";
 import StackInfo from "./StackInfo";
 
 export default function Stack({
@@ -12,12 +11,6 @@ export default function Stack({
   return (
     <>
       <StackInfo goBack={goBack} stackId={stackId} />
-      <SidebarTools
-        visible={true}
-        goBack={() => null}
-        stackId={stackId}
-        projectID={""}
-      />
     </>
   );
 }

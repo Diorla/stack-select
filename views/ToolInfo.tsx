@@ -76,7 +76,7 @@ export default function ProjectInfo({
           <MdArrowBack style={{ fontSize: "1.5rem" }} /> Back
         </Row>
       </Row>
-      <Scroll offset={6}>
+      <Scroll headerHeight={6}>
         <Pile style={{ width: "90%" }}>
           <Editable
             editable={editName}

@@ -99,7 +99,7 @@ export default function Stacks({
           </Button>
         </Row>
       </Row>
-      <ViewWrapper>
+      <ViewWrapper headerHeight={44}>
         {stacks.map((stack) => (
           <StackCard
             key={stack.id}

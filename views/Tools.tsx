@@ -24,7 +24,7 @@ export default function Tools({
           </Button>
         </Row>
       </Row>
-      <ViewWrapper offset={11}>
+      <ViewWrapper headerHeight={11}>
         {tools.map((tool) => (
           <ToolCard
             key={tool.id}

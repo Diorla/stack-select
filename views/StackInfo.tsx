@@ -1,8 +1,3 @@
-import Button from "components/Button";
-import Divider from "components/Divider";
-import Dropdown from "components/Dropdown";
-import InputLabel from "components/InputLabel";
-import Note from "components/Note";
 import Pane from "components/Pane";
 import Row from "components/Row";
 import Scroll from "components/Scroll";
@@ -63,7 +58,7 @@ export default function StackInfo({
           <MdArrowBack style={{ fontSize: "1.5rem" }} /> Back
         </Row>
       </Row>
-      <Scroll offset={6}>
+      <Scroll headerHeight={6}>
         <Pile style={{ width: "90%" }}>
           <Editable
             variant="h3"
