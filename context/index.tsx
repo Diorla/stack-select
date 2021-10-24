@@ -7,6 +7,7 @@ import app from "interfaces/app";
 import useProjects from "hooks/useProjects";
 import useStacks from "hooks/useStacks";
 import useTools from "hooks/useTools";
+import Control from "./Control";
 
 export const UserContext = createContext<app>({
   user: initialUser,
@@ -73,10 +74,11 @@ export default function UserContextComp({ children }: { children: any }) {
         toolError,
       }}
     >
-      {children}
+      <Control loading={loadingUser} userId={user?.uid}>
+        {children}
+      </Control>
     </UserContext.Provider>
   );
 }
 
-// Custom hook that shorthands the context!
 export const useUser = () => useContext(UserContext);

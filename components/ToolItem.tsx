@@ -11,6 +11,8 @@ import deleteTool from "services/deleteTool";
 import Button from "./Button";
 import Modal from "./Modal";
 import createTool from "services/createTool";
+import Link from "next/link";
+import NavLink from "./NavLink";
 
 export default function ToolItem({
   checked,
@@ -38,7 +40,7 @@ export default function ToolItem({
     });
   };
   return (
-    <Pile style={{ width: "100%", borderBottom: "1px solid silver" }}>
+    <Pile style={{ borderBottom: "1px solid silver" }}>
       <Modal visible={deleteModal} onClose={() => setDeleteModal(false)}>
         <Pile>
           <Text variant="h4" style={{ textAlign: "center" }}>
@@ -62,13 +64,23 @@ export default function ToolItem({
           justifyContent: "space-between",
         }}
       >
-        <Text>{tool.name}</Text>
+        <Link href={`/tool/${tool.id}`} passHref>
+          <NavLink style={{ color: "black" }}>{tool.name}</NavLink>
+        </Link>
         {hideCheckbox ? null : (
-          <Radio checked={checked} onClick={() => onCheck(tool.id)} />
+          <Radio
+            checked={checked}
+            onClick={() => onCheck(tool.id)}
+            onChange={() => null}
+          />
         )}
       </Row>
       <Row style={{ justifyContent: "space-between", alignItems: "baseline" }}>
-        <Rating value={tool.rating} onChange={(value) => updateRating(value)} />
+        <Rating
+          value={tool.rating}
+          onChange={(value) => updateRating(value)}
+          disabled={!hideCheckbox}
+        />
         <MdDelete
           style={{ cursor: "pointer", height: 24, width: 24 }}
           onClick={() => setDeleteModal(true)}

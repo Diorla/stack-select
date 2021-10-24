@@ -4,7 +4,7 @@ import styled from "styled-components";
 import AppBar from "./AppBar";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
-
+import Head from "next/head";
 const StyledLayout = styled.div`
   height: 100vh;
   width: 100vw;
@@ -20,10 +20,11 @@ export default function Layout({
   activePath: path;
   children: React.ReactNode;
 }) {
-  const arr = [1];
-  for (let i = 2; i < 100; i++) arr.push(i);
   return (
     <StyledLayout>
+      <Head>
+        <title>Stackselect - {activePath}</title>
+      </Head>
       <AppBar>{appBar}</AppBar>
       <Main>
         <Sidebar activePath={activePath} />

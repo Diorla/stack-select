@@ -3,12 +3,12 @@ import project from "interfaces/project";
 import createProject from "services/createProject";
 
 export default function deleteNote(
-  setNote: React.Dispatch<
-    React.SetStateAction<{
-      visible: boolean;
-      value: string;
-    }>
-  >,
+  // setNote: React.Dispatch<
+  //   React.SetStateAction<{
+  //     visible: boolean;
+  //     value: string;
+  //   }>
+  // >,
   idx: number,
   uid: string,
   currentProject: project
@@ -19,10 +19,5 @@ export default function deleteNote(
       ...currentProject.notes.slice(0, idx),
       ...currentProject.notes.slice(idx + 1),
     ],
-  }).then(() =>
-    setNote({
-      value: "",
-      visible: false,
-    })
-  );
+  });
 }

@@ -1,5 +1,4 @@
 import SignIn from "views/SignIn";
-import Header from "components/HeaderContent";
 import Sidebar from "components/Sidebar";
 import Container from "components/Container";
 import Main from "components/Main";
@@ -16,7 +15,6 @@ export default function Layout({
   const { user } = useUser();
   return (
     <Container>
-      <Header />
       {user.uid ? (
         <Main>
           <Sidebar activePath={activePath} />

@@ -14,7 +14,7 @@ const isSameStatus = (projectStatus: status, pageStatus: status | "") => {
 };
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
-  const { projects } = useUser();
+  const { projects, loadingProject } = useUser();
   const [status, setStatus] = useState<status | "">("");
 
   const toggleStatus = (currentStatus: status | "") => {
@@ -28,24 +28,28 @@ export default function Home() {
       activePath="home"
       appBar={<UserAppBar value={searchValue} onChange={setSearchValue} />}
     >
-      <Section
-        headerHeight={70}
-        header={<UserHeader onClick={toggleStatus} status={status} />}
-      >
-        <Row style={{ justifyContent: "space-evenly" }}>
-          {projects
-            .filter(
-              (item) =>
-                `${item.name} ${item.description}`
-                  .toLowerCase()
-                  .includes(searchValue.toLowerCase()) &&
-                isSameStatus(item.status, status)
-            )
-            .map((item) => (
-              <ProjectCard key={item.id} project={item} />
-            ))}
-        </Row>
-      </Section>
+      {loadingProject ? (
+        <div>Project loading</div>
+      ) : (
+        <Section
+          headerHeight={70}
+          header={<UserHeader onClick={toggleStatus} status={status} />}
+        >
+          <Row style={{ justifyContent: "space-evenly" }}>
+            {projects
+              .filter(
+                (item) =>
+                  `${item.name} ${item.description}`
+                    .toLowerCase()
+                    .includes(searchValue.toLowerCase()) &&
+                  isSameStatus(item.status, status)
+              )
+              .map((item) => (
+                <ProjectCard key={item.id} project={item} />
+              ))}
+          </Row>
+        </Section>
+      )}
     </Layout>
   );
 }

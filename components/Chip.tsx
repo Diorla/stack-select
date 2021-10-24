@@ -15,13 +15,15 @@ export default function Chip({
   value,
   icon,
   color = "primary",
+  style,
 }: {
   value: string;
   icon?: React.ReactNode;
   color?: color;
+  style?: React.CSSProperties;
 }) {
   return (
-    <StyledChip color={color}>
+    <StyledChip color={color} style={style}>
       {value}
       {icon}
     </StyledChip>

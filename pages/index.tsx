@@ -1,5 +1,10 @@
+import ErrorBoundary from "views/ErrorBoundary";
 import Home from "views/Home";
 
 export default function home() {
-  return <Home />;
+  return (
+    <ErrorBoundary>
+      <Home />
+    </ErrorBoundary>
+  );
 }

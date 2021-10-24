@@ -17,27 +17,33 @@ const Input = styled.input`
   font-size: 1.2rem;
   background: transparent;
   border-radius: 0.6rem;
-  padding: 0.4rem;
+  padding: 0.4rem 0.2rem;
 `;
 
-const Icon = styled(FaSearch)`
+const Icon = styled.span`
   width: 1.2rem;
   height: 1.2rem;
   padding: 0.2rem;
   background: transparent;
   border-radius: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 `;
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  wrapperStyle?: React.CSSProperties;
+}
 export default function SearchInput(props: InputProps) {
   const ref = useRef<HTMLInputElement | null>(null);
   const [isFocus, setIsFocus] = useState(false);
   const border = isFocus ? "1px solid #999" : "1px solid #ccc";
   return (
-    <Styled style={{ border }}>
-      <Icon onClick={() => ref?.current?.focus()} />
+    <Styled style={{ border, ...props.wrapperStyle }}>
+      <Icon onClick={() => ref?.current?.focus()}>
+        <FaSearch />
+      </Icon>
       <Input
         {...props}
-        type="search"
         placeholder="Search"
         ref={ref}
         onFocus={() => setIsFocus(true)}

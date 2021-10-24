@@ -22,7 +22,6 @@ const Scroll = styled.div<{ headerHeight: number }>`
   &::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 0px;
-    border: 1px solid #555;
   }
 `;
 

@@ -44,6 +44,9 @@ export default function ProjectCard({ project }: { project: project }) {
         minHeight: "8rem",
         margin: "0.2rem",
         borderRadius: "0.4rem",
+        justifyContent: "space-between",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Modal visible={deleteModal} onClose={() => setDeleteModal(false)}>
@@ -63,37 +66,41 @@ export default function ProjectCard({ project }: { project: project }) {
           </Row>
         </Pile>
       </Modal>
-      <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
-        <Link href={`project/${project.id}`}>
-          <Text variant="h3" style={{ cursor: "pointer" }}>
-            {name}
-          </Text>
-        </Link>
-      </Row>
-      <Text
-        variant="caption"
-        style={{ fontStyle: "italic", paddingLeft: "0.2rem" }}
-      >
-        {sx[status]}
-      </Text>
-      <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
-        {description.length > 100
-          ? description.slice(0, 100) + "..."
-          : description}
-      </Text>
-      <Divider size={1} color={color} />
-      <Row
-        style={{
-          justifyContent: "space-between",
-          padding: "0.4rem",
-        }}
-      >
-        <Text variant="caption">{toolsId.length} tools</Text>
-        <MdDelete
-          style={{ cursor: "pointer", height: 24, width: 24 }}
-          onClick={() => setDeleteModal(true)}
-        />
-      </Row>
+      <Pile>
+        <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
+          <Link href={`project/${project.id}`}>
+            <Text variant="h3" style={{ cursor: "pointer" }}>
+              {name}
+            </Text>
+          </Link>
+        </Row>
+        <Text
+          variant="caption"
+          style={{ fontStyle: "italic", paddingLeft: "0.2rem" }}
+        >
+          {sx[status]}
+        </Text>
+        <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
+          {description.length > 100
+            ? description.slice(0, 100) + "..."
+            : description}
+        </Text>
+      </Pile>
+      <Pile>
+        <Divider size={1} color={color} />
+        <Row
+          style={{
+            justifyContent: "space-between",
+            padding: "0.4rem",
+          }}
+        >
+          <Text variant="caption">{toolsId.length} tools</Text>
+          <MdDelete
+            style={{ cursor: "pointer", height: 24, width: 24 }}
+            onClick={() => setDeleteModal(true)}
+          />
+        </Row>
+      </Pile>
     </Card>
   );
 }
