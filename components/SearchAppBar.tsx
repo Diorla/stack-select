@@ -5,7 +5,7 @@ import { Logo } from "components/Logo";
 import AppBar from "components/AppBar";
 import Profile from "components/Profile";
 
-export default function UserAppBar({
+export default function SearchAppBar({
   value,
   onChange,
 }: {
@@ -18,6 +18,7 @@ export default function UserAppBar({
   return (
     <AppBar>
       <Logo />
+      <SearchInput value={value} onChange={(e) => onChange(e.target.value)} />
       <Profile photoURL={photoURL} displayName={displayName} />
     </AppBar>
   );

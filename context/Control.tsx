@@ -1,4 +1,5 @@
 import React from "react";
+import SignIn from "views/SignIn";
 
 export default function Control({
   loading,
@@ -11,5 +12,5 @@ export default function Control({
 }) {
   if (loading) return <div>Loading</div>;
   if (userId) return <>{children}</>;
-  return <div>Sign up here</div>;
+  return <SignIn />;
 }

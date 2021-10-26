@@ -1,14 +1,15 @@
 import { useUser } from "context";
-import color from "interfaces/color";
 import tool from "interfaces/tool";
+import Link from "next/link";
 import React, { useState } from "react";
-import { MdCancel, MdDelete } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import createTool from "services/createTool";
 import deleteTool from "services/deleteTool";
 import Button from "./Button";
 import Card from "./Card";
 import Divider from "./Divider";
 import Modal from "./Modal";
+import NavLink from "./NavLink";
 import Pile from "./Pile";
 import Rating from "./Rating";
 import Row from "./Row";
@@ -16,11 +17,9 @@ import Text from "./Text";
 
 export default function ToolCard({
   isList,
-  openTool,
   tool,
 }: {
   isList?: boolean;
-  openTool: () => void;
   tool: tool;
 }) {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -72,13 +71,15 @@ export default function ToolCard({
         style={{
           justifyContent: "space-between",
           padding: "0.4rem",
-          // display: "flex"
         }}
-        onClick={openTool}
       >
-        <Text variant="h3" style={{ cursor: "pointer" }}>
-          {name}
-        </Text>
+        <Link href={`/tool/${tool.id}`} passHref>
+          <NavLink>
+            <Text variant="h3" style={{ cursor: "pointer", color: "black" }}>
+              {name}
+            </Text>
+          </NavLink>
+        </Link>
       </Row>
       <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
         {description.length > 100

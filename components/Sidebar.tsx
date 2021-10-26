@@ -23,7 +23,7 @@ export default function Sidebar({ activePath }: { activePath: path }) {
           <SidebarIcon icon={<FaHome />} active={activePath === "home"} />
         </a>
       </Link>
-      <Link href="/stack">
+      <Link href="/stacks">
         <a>
           <SidebarIcon
             icon={<GrStackOverflow />}
@@ -31,7 +31,7 @@ export default function Sidebar({ activePath }: { activePath: path }) {
           />
         </a>
       </Link>
-      <Link href="/tool">
+      <Link href="/tools">
         <a>
           <SidebarIcon icon={<FaTools />} active={activePath === "tool"} />
         </a>

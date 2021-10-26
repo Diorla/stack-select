@@ -4,7 +4,7 @@ import Section from "components/Section";
 import Row from "components/Row";
 import { useUser } from "context";
 import ProjectCard from "components/ProjectCard";
-import UserAppBar from "./UserAppBar";
+import SearchAppBar from "components/SearchAppBar";
 import UserHeader from "./UserHeader";
 import { status } from "interfaces/project";
 
@@ -26,7 +26,7 @@ export default function Home() {
   return (
     <Layout
       activePath="home"
-      appBar={<UserAppBar value={searchValue} onChange={setSearchValue} />}
+      appBar={<SearchAppBar value={searchValue} onChange={setSearchValue} />}
     >
       {loadingProject ? (
         <div>Project loading</div>

@@ -1,7 +1,7 @@
+import Layout from "components/Layout";
 import Row from "components/Row";
 import React, { useState } from "react";
 import ErrorBoundary from "views/ErrorBoundary";
-import Layout from "views/Layout";
 import Stack from "views/Stack";
 import Stacks from "views/Stacks";
 
@@ -13,7 +13,7 @@ for (let i = 0; i < 1000; i++) {
 export default function StackPage() {
   const [stack, setStack] = useState("");
   return (
-    <Layout activePath="stack">
+    <Layout activePath="stack" appBar={null}>
       <ErrorBoundary>
         <Row style={{ flex: 1 }}>
           {stack ? (

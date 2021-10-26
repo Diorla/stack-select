@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layout from "components/Layout";
 import Section from "components/Section";
 import { useUser } from "context";
-import UserAppBar from "./UserAppBar";
+import NoSearchAppBar from "components/NoSearchAppBar";
 import Hidden from "components/Hidden";
 import UserHeader from "./UserHeader";
 import Pile from "components/Pile";
@@ -16,7 +16,6 @@ import SidebarTools from "./SidebarTools";
 import SidebarStacks from "./SidebarStacks";
 
 export default function Project({ id }: { id: string }) {
-  const [searchValue, setSearchValue] = useState("");
   const [visible, setVisible] = useState(false);
   const [stackId, setStackId] = useState("");
   const { projects } = useUser();
@@ -24,10 +23,7 @@ export default function Project({ id }: { id: string }) {
   const currentProject = projects.filter((project) => project.id === id)[0];
 
   return (
-    <Layout
-      activePath="home"
-      appBar={<UserAppBar value={searchValue} onChange={setSearchValue} />}
-    >
+    <Layout activePath="home" appBar={<NoSearchAppBar />}>
       {currentProject?.id ? (
         <>
           <Section
