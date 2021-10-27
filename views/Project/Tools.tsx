@@ -25,6 +25,7 @@ export default function Tools({ currentProject }: { currentProject: project }) {
               style={{ margin: 1 }}
               key={item.id}
               value={item.name}
+              href={`/tool/${item.id}`}
               icon={
                 <CancelIcon
                   onClick={() => removeTool(item.id, uid, currentProject)}

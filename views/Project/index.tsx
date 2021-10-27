@@ -4,7 +4,7 @@ import Section from "components/Section";
 import { useUser } from "context";
 import NoSearchAppBar from "components/NoSearchAppBar";
 import Hidden from "components/Hidden";
-import UserHeader from "./UserHeader";
+import ItemPageHeader from "../../components/ItemPageHeader";
 import Pile from "components/Pile";
 import Text from "components/Text";
 import Status from "./Status";
@@ -28,7 +28,7 @@ export default function Project({ id }: { id: string }) {
         <>
           <Section
             headerHeight={35}
-            header={<UserHeader name={currentProject.name} />}
+            header={<ItemPageHeader href="/" name={currentProject.name} />}
             style={{ flex: 5 }}
           >
             {visible ? (

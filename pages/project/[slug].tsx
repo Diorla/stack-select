@@ -4,11 +4,11 @@ import Project from "views/Project";
 
 export default function project() {
   const {
-    query: { id },
+    query: { slug },
   } = useRouter();
 
-  const projectId = Array.isArray(id) ? id[0] : id;
-  if (id)
+  const projectId = Array.isArray(slug) ? slug[0] : slug;
+  if (slug)
     return (
       <ErrorBoundary>
         <Project id={projectId || ""} />
