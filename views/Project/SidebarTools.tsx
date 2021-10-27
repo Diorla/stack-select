@@ -29,10 +29,12 @@ export default function SidebarTools({
   stackId,
   currentProject,
   resetStackId,
+  hideFilter,
 }: {
   stackId: string;
   currentProject?: project;
   resetStackId: () => void;
+  hideFilter?: boolean;
 }) {
   const {
     tools,
@@ -61,7 +63,8 @@ export default function SidebarTools({
       // if it is already filtered
       if (stackTools.length <= 2) setStackTools(allTools);
       else {
-        const weights = allTools.map((item) => item.rating ** 3);
+        const weights = allTools.map((item) => item.rating ** 3 + 1);
+        // console.log(weights);
         const stackTools = selectItems(allTools, weights, 2);
         setStackTools(stackTools as tool[]);
       }
@@ -92,6 +95,7 @@ export default function SidebarTools({
           isProject={!!currentProject}
           filterTwo={filterTwoStack}
           filterInfo={filterInfo}
+          hideFilter={hideFilter}
         />
       }
       style={{ flex: 3 }}

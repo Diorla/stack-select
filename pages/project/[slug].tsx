@@ -11,7 +11,7 @@ export default function project() {
   if (slug)
     return (
       <ErrorBoundary>
-        <Project id={projectId || ""} />
+        {projectId ? <Project id={projectId} /> : null}
       </ErrorBoundary>
     );
   return <div>Loading</div>;

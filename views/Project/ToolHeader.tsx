@@ -31,6 +31,7 @@ export default function ToolHeader({
   isProject,
   filterTwo,
   filterInfo,
+  hideFilter,
 }: {
   setSearch: (arg: string) => void;
   currentStack: stack;
@@ -41,6 +42,7 @@ export default function ToolHeader({
     disabled: boolean;
     title: string;
   };
+  hideFilter?: boolean;
 }) {
   const {
     user: { uid },
@@ -104,13 +106,15 @@ export default function ToolHeader({
         >
           New Tool
         </Button>
-        <Button
-          color="secondary"
-          onClick={filterTwo}
-          disabled={filterInfo.disabled}
-        >
-          {filterInfo.title}
-        </Button>
+        {hideFilter ? null : (
+          <Button
+            color="secondary"
+            onClick={filterTwo}
+            disabled={filterInfo.disabled}
+          >
+            {filterInfo.title}
+          </Button>
+        )}
       </Row>
       <SidebarDropdown visible={tool.visible}>
         <Pile>

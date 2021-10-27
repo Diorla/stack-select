@@ -1,16 +1,16 @@
 import { useRouter } from "next/router";
 import ErrorBoundary from "views/ErrorBoundary";
-import Tool from "views/Tool";
+import Stack from "views/Stack";
 
-export default function tool() {
+export default function stack() {
   const {
     query: { slug },
   } = useRouter();
 
-  const toolId = Array.isArray(slug) ? slug[0] : slug;
+  const stackId = Array.isArray(slug) ? slug[0] : slug;
   if (slug)
     return (
-      <ErrorBoundary>{toolId ? <Tool id={toolId} /> : null}</ErrorBoundary>
+      <ErrorBoundary>{stackId ? <Stack id={stackId} /> : null}</ErrorBoundary>
     );
   return <div>Loading</div>;
 }

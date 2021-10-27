@@ -22,7 +22,6 @@ import ToolForm from "views/Tools/ToolForm";
 export default function Tool({ id }: { id: string }) {
   const {
     tools,
-    loadingTool,
     stacks,
     projects,
     user: { uid },
