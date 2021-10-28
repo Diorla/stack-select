@@ -1,6 +1,15 @@
-import React from 'react';
-import { FaToolbox } from 'react-icons/fa';
+import React from "react";
+import Title from "./Title";
+import Hidden from "./Hidden";
+import { FaToolbox } from "react-icons/fa";
 
-export default function Logo() {
-  return <FaToolbox style={{ fontSize: '1.5rem' }} />;
+export function Logo() {
+  return (
+    <div style={{ display: "flex", alignItems: "center", marginLeft: 4 }}>
+      <FaToolbox style={{ fontSize: "1.5rem" }} />
+      <Hidden lgDown>
+        <Title />
+      </Hidden>
+    </div>
+  );
 }

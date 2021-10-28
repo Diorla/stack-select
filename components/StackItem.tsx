@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import deleteStack from "services/deleteStack";
 import Modal from "./Modal";
 import Button from "./Button";
+import pluralByS from "scripts/pluralByS";
 
 export default function StackItem({
   openTools,
@@ -31,7 +32,6 @@ export default function StackItem({
     <Pile
       style={{
         borderBottom: "1px solid silver",
-        width: "100%",
       }}
     >
       <Modal visible={deleteModal} onClose={() => setDeleteModal(false)}>
@@ -62,8 +62,9 @@ export default function StackItem({
           justifyContent: "space-between",
         }}
       >
-        <Text>{new Date(stack.modified).toDateString()}</Text>
-        <Text>{StackTools.length} tools</Text>
+        <Text>
+          {StackTools.length} {pluralByS("tool", StackTools.length)}
+        </Text>
         <MdDelete
           style={{ cursor: "pointer", height: 24, width: 24 }}
           onClick={() => setDeleteModal(true)}

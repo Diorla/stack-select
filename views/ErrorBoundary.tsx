@@ -1,3 +1,5 @@
+import NavLink from "components/NavLink";
+import Link from "next/link";
 import React, { Component, ErrorInfo, ReactNode } from "react";
 
 interface Props {
@@ -23,7 +25,14 @@ class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      return <h1>Sorry.. there was an error</h1>;
+      return (
+        <div>
+          <h1>Sorry.. there was an error</h1>
+          <Link href="/" passHref>
+            <NavLink>Go home</NavLink>
+          </Link>
+        </div>
+      );
     }
 
     return this.props.children;

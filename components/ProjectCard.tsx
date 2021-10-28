@@ -1,7 +1,8 @@
 import { useUser } from "context";
 import color from "interfaces/color";
 import project from "interfaces/project";
-import { useState } from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import deleteProject from "services/deleteProject";
 import Button from "./Button";
@@ -18,17 +19,10 @@ const sx = {
   reviewing: "In review",
   todo: "Not started",
 };
-export default function ProjectCard({
-  openProject,
-  project,
-}: {
-  openProject: (id: string) => void;
-  project: project;
-}) {
+export default function ProjectCard({ project }: { project: project }) {
   const {
-    user: { projectView, uid },
+    user: { uid },
   } = useUser();
-  const isList = projectView === "list";
   const { name, description, toolsId, status } = project;
   let color: color = "primary";
   if (status === "doing") color = "warning";
@@ -45,10 +39,12 @@ export default function ProjectCard({
       elevation={1}
       color={color}
       style={{
-        width: isList ? "90%" : "16rem",
         minHeight: "8rem",
         margin: "0.2rem",
         borderRadius: "0.4rem",
+        justifyContent: "space-between",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Modal visible={deleteModal} onClose={() => setDeleteModal(false)}>
@@ -68,39 +64,41 @@ export default function ProjectCard({
           </Row>
         </Pile>
       </Modal>
-      <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
+      <Pile>
+        <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
+          <Link href={`project/${project.id}`}>
+            <Text variant="h3" style={{ cursor: "pointer" }}>
+              {name}
+            </Text>
+          </Link>
+        </Row>
         <Text
-          variant="h3"
-          style={{ cursor: "pointer" }}
-          onClick={() => openProject(project.id)}
+          variant="caption"
+          style={{ fontStyle: "italic", paddingLeft: "0.2rem" }}
         >
-          {name}
+          {sx[status]}
         </Text>
-      </Row>
-      <Text
-        variant="caption"
-        style={{ fontStyle: "italic", paddingLeft: "0.2rem" }}
-      >
-        {sx[status]}
-      </Text>
-      <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
-        {description.length > 100
-          ? description.slice(0, 100) + "..."
-          : description}
-      </Text>
-      <Divider size={1} color={color} />
-      <Row
-        style={{
-          justifyContent: "space-between",
-          padding: "0.4rem",
-        }}
-      >
-        <Text variant="caption">{toolsId.length} tools</Text>
-        <MdDelete
-          style={{ cursor: "pointer", height: 24, width: 24 }}
-          onClick={() => setDeleteModal(true)}
-        />
-      </Row>
+        <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
+          {description.length > 100
+            ? description.slice(0, 100) + "..."
+            : description}
+        </Text>
+      </Pile>
+      <Pile>
+        <Divider size={1} color={color} />
+        <Row
+          style={{
+            justifyContent: "space-between",
+            padding: "0.4rem",
+          }}
+        >
+          <Text variant="caption">{toolsId.length} tools</Text>
+          <MdDelete
+            style={{ cursor: "pointer", height: 24, width: 24 }}
+            onClick={() => setDeleteModal(true)}
+          />
+        </Row>
+      </Pile>
     </Card>
   );
 }

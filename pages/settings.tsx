@@ -1,10 +1,10 @@
+import Layout from "components/Layout";
 import Row from "components/Row";
 import React from "react";
-import Layout from "views/Layout";
 
-export default function Home() {
+export default function Settings() {
   return (
-    <Layout activePath="tool">
+    <Layout activePath="tool" appBar={null}>
       <Row
         style={{
           flex: 1,

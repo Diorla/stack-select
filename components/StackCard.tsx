@@ -1,5 +1,6 @@
 import { useUser } from "context";
 import stack from "interfaces/stack";
+import Link from "next/link";
 import React, { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import deleteStack from "services/deleteStack";
@@ -7,17 +8,16 @@ import Button from "./Button";
 import Card from "./Card";
 import Divider from "./Divider";
 import Modal from "./Modal";
+import NavLink from "./NavLink";
 import Pile from "./Pile";
 import Row from "./Row";
 import Text from "./Text";
 
 export default function StackCard({
   isList,
-  openStack,
   stack,
 }: {
   isList?: boolean;
-  openStack: () => void;
   stack: stack;
 }) {
   const { tools } = useUser();
@@ -60,13 +60,14 @@ export default function StackCard({
           </Row>
         </Pile>
       </Modal>
-      <Row
-        style={{ justifyContent: "space-between", padding: "0.4rem" }}
-        onClick={openStack}
-      >
-        <Text variant="h3" style={{ cursor: "pointer" }}>
-          {name}
-        </Text>
+      <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
+        <Link href={`/stack/${id}`} passHref>
+          <NavLink>
+            <Text variant="h3" style={{ cursor: "pointer", color: "black" }}>
+              {name}
+            </Text>
+          </NavLink>
+        </Link>
       </Row>
       <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
         {description.length > 100

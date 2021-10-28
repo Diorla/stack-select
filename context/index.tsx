@@ -4,12 +4,10 @@ import initialUser from "./initialUser";
 import user from "interfaces/user";
 import fetchUser from "services/fetchUser";
 import app from "interfaces/app";
-import fetchProjects from "services/fetchProjects";
-import project from "interfaces/project";
-import stack from "interfaces/stack";
-import fetchStacks from "services/fetchStacks";
-import tool from "interfaces/tool";
-import fetchTools from "services/fetchTools";
+import useProjects from "hooks/useProjects";
+import useStacks from "hooks/useStacks";
+import useTools from "hooks/useTools";
+import Control from "./Control";
 
 export const UserContext = createContext<app>({
   user: initialUser,
@@ -22,7 +20,7 @@ export const UserContext = createContext<app>({
   tools: [],
   loadingTool: false,
   projectError: null,
-  userStackError: null,
+  stackError: null,
   toolError: null,
 });
 
@@ -30,15 +28,17 @@ export default function UserContextComp({ children }: { children: any }) {
   const [user, setUser] = useState<user>(initialUser);
   const [loadingUser, setLoadingUser] = useState(true);
   const [userError, setUserError] = useState<Error | null>(null);
-  const [projects, setProjects] = useState<project[]>([]);
-  const [loadingProject, setLoadingProject] = useState(true);
-  const [projectError, setProjectError] = useState<Error | null>(null);
-  const [stacks, setStacks] = useState<stack[]>([]);
-  const [loadingStack, setLoadingStack] = useState(true);
-  const [userStackError, setStackError] = useState<Error | null>(null);
-  const [tools, setTools] = useState<tool[]>([]);
-  const [loadingTool, setLoadingTool] = useState(true);
-  const [toolError, setToolError] = useState<Error | null>(null);
+  const {
+    projects,
+    loading: loadingProject,
+    error: projectError,
+  } = useProjects(user.uid);
+  const {
+    stacks,
+    loading: loadingStack,
+    error: stackError,
+  } = useStacks(user.uid);
+  const { tools, loading: loadingTool, error: toolError } = useTools(user.uid);
 
   useEffect(() => {
     const unsubscriber = firebase.auth().onAuthStateChanged(async (user) => {
@@ -46,18 +46,6 @@ export default function UserContextComp({ children }: { children: any }) {
         if (user) {
           const { uid, displayName, email, photoURL } = user;
           fetchUser(uid, { uid, displayName, email, photoURL }, setUser);
-          fetchProjects(uid, (projects) => {
-            setProjects(projects);
-            setLoadingProject(false);
-          }).catch((err) => setProjectError(err));
-          fetchStacks(uid, (stacks) => {
-            setStacks(stacks);
-            setLoadingStack(false);
-          }).catch((err) => setStackError(err));
-          fetchTools(uid, (tools) => {
-            setTools(tools);
-            setLoadingTool(false);
-          }).catch((err) => setToolError(err));
         } else setUser(initialUser);
       } catch (error) {
         setUserError(error as Error);
@@ -82,14 +70,15 @@ export default function UserContextComp({ children }: { children: any }) {
         tools,
         loadingTool,
         projectError,
-        userStackError,
+        stackError,
         toolError,
       }}
     >
-      {children}
+      <Control loading={loadingUser} userId={user?.uid}>
+        {children}
+      </Control>
     </UserContext.Provider>
   );
 }
 
-// Custom hook that shorthands the context!
 export const useUser = () => useContext(UserContext);
