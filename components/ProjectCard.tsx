@@ -21,9 +21,8 @@ const sx = {
 };
 export default function ProjectCard({ project }: { project: project }) {
   const {
-    user: { projectView, uid },
+    user: { uid },
   } = useUser();
-  const isList = projectView === "list";
   const { name, description, toolsId, status } = project;
   let color: color = "primary";
   if (status === "doing") color = "warning";
@@ -40,7 +39,6 @@ export default function ProjectCard({ project }: { project: project }) {
       elevation={1}
       color={color}
       style={{
-        width: isList ? "90%" : "16rem",
         minHeight: "8rem",
         margin: "0.2rem",
         borderRadius: "0.4rem",
