@@ -15,13 +15,7 @@ import Rating from "./Rating";
 import Row from "./Row";
 import Text from "./Text";
 
-export default function ToolCard({
-  isList,
-  tool,
-}: {
-  isList?: boolean;
-  tool: tool;
-}) {
+export default function ToolCard({ tool }: { tool: tool }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const { name, rating, description } = tool;
   const {
@@ -41,7 +35,7 @@ export default function ToolCard({
       elevation={1}
       color="primary"
       style={{
-        width: isList ? "90%" : "16rem",
+        width: "16rem",
         minHeight: "8rem",
         margin: "0.2rem",
         borderRadius: "0.4rem",
@@ -82,9 +76,7 @@ export default function ToolCard({
         </Link>
       </Row>
       <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
-        {description.length > 100
-          ? description.slice(0, 100) + "..."
-          : description}
+        {description}
       </Text>
       <Divider size={1} color="primary" />
       <Row

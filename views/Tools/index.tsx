@@ -1,5 +1,6 @@
 import Layout from "components/Layout";
 import Section from "components/Section";
+import Text from "components/Text";
 import { useUser } from "context";
 import tool from "interfaces/tool";
 import React, { useState } from "react";
@@ -53,6 +54,9 @@ export default function Tools() {
         }
       >
         <Modal visible={visible} onClose={() => setVisible(false)}>
+          <Text variant="h3" style={{ textAlign: "center" }}>
+            New Tool
+          </Text>
           <ToolForm
             initialValues={{
               name: "",

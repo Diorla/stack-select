@@ -11,9 +11,10 @@ import Status from "./Status";
 import Tools from "./Tools";
 import NoteManager from "./NoteManager";
 import { MdEdit } from "react-icons/md";
-import Form from "./Form";
 import SidebarTools from "./SidebarTools";
 import SidebarStacks from "./SidebarStacks";
+import Modal from "components/Modal";
+import ProjectForm from "views/Home/ProjectForm";
 
 export default function Project({ id }: { id: string }) {
   const [visible, setVisible] = useState(false);
@@ -31,12 +32,15 @@ export default function Project({ id }: { id: string }) {
             header={<ItemPageHeader href="/" name={currentProject.name} />}
             style={{ flex: 5 }}
           >
-            {visible ? (
-              <Form
+            <Modal visible={visible} onClose={() => setVisible(false)}>
+              <Text variant="h3" style={{ textAlign: "center" }}>
+                Update Project
+              </Text>
+              <ProjectForm
+                initialValues={currentProject}
                 onClose={() => setVisible(false)}
-                currentProject={currentProject}
               />
-            ) : null}
+            </Modal>
             <Pile>
               <Text
                 variant="h3"
@@ -48,7 +52,14 @@ export default function Project({ id }: { id: string }) {
                   style={{ cursor: "pointer" }}
                 />
               </Text>
-              <Text>{currentProject.description}</Text>
+              <Text
+                style={{
+                  border: "1px solid silver",
+                  padding: 2,
+                }}
+              >
+                {currentProject.description}
+              </Text>
               <Status currentProject={currentProject} />
               <Tools currentProject={currentProject} />
               <NoteManager currentProject={currentProject} />

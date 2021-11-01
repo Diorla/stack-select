@@ -5,7 +5,7 @@ import Row from "components/Row";
 import { useUser } from "context";
 import ProjectCard from "components/ProjectCard";
 import SearchAppBar from "components/SearchAppBar";
-import UserHeader from "./UserHeader";
+import ProjectHeader from "./ProjectHeader";
 import { status } from "interfaces/project";
 
 const isSameStatus = (projectStatus: status, pageStatus: status | "") => {
@@ -33,7 +33,7 @@ export default function Home() {
       ) : (
         <Section
           headerHeight={70}
-          header={<UserHeader onClick={toggleStatus} status={status} />}
+          header={<ProjectHeader onClick={toggleStatus} status={status} />}
         >
           <Row style={{ justifyContent: "space-evenly" }}>
             {projects
