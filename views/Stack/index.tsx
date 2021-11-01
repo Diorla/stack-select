@@ -28,6 +28,9 @@ export default function Stack({ id }: { id: string }) {
           style={{ flex: 5 }}
         >
           <Modal visible={visible} onClose={() => setVisible(false)}>
+            <Text variant="h3" style={{ textAlign: "center" }}>
+              Update Stack
+            </Text>
             <StackForm
               initialValues={currentStack}
               onClose={() => setVisible(false)}
@@ -46,7 +49,6 @@ export default function Stack({ id }: { id: string }) {
             </Text>
             <Text
               style={{
-                whiteSpace: "pre",
                 border: "1px solid silver",
                 padding: 2,
               }}

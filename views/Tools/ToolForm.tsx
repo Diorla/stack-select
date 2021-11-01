@@ -14,6 +14,12 @@ import ErrorMessage from "components/ErrorMessage";
 import createTool from "services/createTool";
 import { useUser } from "context";
 
+// Sometimes, the stack is already deleted, so return misc
+// It will still require users to select a valid stack
+const getDropdownValue = (item?: { id: string; value: string }) => {
+  if (item) return item.value;
+  return "misc";
+};
 const ToolForm = ({
   initialValues,
   onClose,
@@ -25,6 +31,7 @@ const ToolForm = ({
     user: { uid },
     stacks,
   } = useUser();
+  console.log(initialValues);
   const stackIdList = [
     { id: "misc", value: "Misc" },
     ...stacks.map((item) => {
@@ -36,12 +43,13 @@ const ToolForm = ({
   ];
   const validationSchema = Yup.object({
     name: Yup.string().required("Required"),
-    description: Yup.string().max(120, "Must be 120 characters or less"),
+    description: Yup.string().max(160, "Must be 160 characters or less"),
     rating: Yup.number().required("Please set rating"),
     stackId: Yup.string()
       .oneOf(
         stackIdList.map((item) => item.id),
         `Stack must be one of the following: ${stackIdList
+          .filter((item) => item.value !== "Misc")
           .map((item) => item.value)
           .join(", ")}`
       )
@@ -93,10 +101,9 @@ const ToolForm = ({
             )
           }
           list={stackIdList}
-          value={
+          value={getDropdownValue(
             stackIdList.filter((item) => item.id === formik.values.stackId)[0]
-              .value
-          }
+          )}
         />
         {formik.touched.stackId && formik.errors.stackId ? (
           <ErrorMessage>{formik.errors.stackId}</ErrorMessage>

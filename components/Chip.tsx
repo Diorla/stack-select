@@ -16,6 +16,9 @@ const StyledChip = styled.div<{ color: color }>`
 const ChipLink = styled.a`
   color: white;
   text-decoration: none;
+  &:hover {
+    color: white;
+  }
 `;
 export default function Chip({
   value,

@@ -19,27 +19,46 @@ import CancelIcon from "views/Project/CancelIcon";
 import removeTool from "views/Project/removeTool";
 import ToolForm from "views/Tools/ToolForm";
 
+const initialTool = {
+  id: "",
+  name: "",
+  rating: 0,
+  description: "",
+  modified: 0,
+  stackId: "",
+};
+
 export default function Tool({ id }: { id: string }) {
   const {
     tools,
     stacks,
+    loadingTool,
     projects,
     user: { uid },
   } = useUser();
   const [visible, setVisible] = useState(false);
+  const currentTool = tools.filter((tool) => tool.id === id)[0] || initialTool;
 
-  const { currentTool, loading } = useTool({ tools, stacks, projects, id });
+  const currentStack = stacks.filter(
+    (stack) => stack.id === currentTool.stackId
+  )[0];
 
-  const { currentStack, projectList } = currentTool;
-  if (loading) return <div>loading</div>;
+  const projectList = projects.filter((project) =>
+    project.toolsId.includes(id)
+  );
+
+  if (loadingTool) return <div>loading</div>;
   return (
     <Layout activePath="tool" appBar={<NoSearchAppBar />}>
-      {currentTool ? (
+      {currentTool.id ? (
         <Section
           header={<ItemPageHeader href="/tools" name={currentTool.name} />}
           headerHeight={40}
         >
           <Modal visible={visible} onClose={() => setVisible(false)}>
+            <Text variant="h3" style={{ textAlign: "center" }}>
+              Update Tool
+            </Text>
             <ToolForm
               initialValues={currentTool}
               onClose={() => setVisible(false)}
@@ -67,7 +86,6 @@ export default function Tool({ id }: { id: string }) {
             </Row>
             <Text
               style={{
-                whiteSpace: "pre",
                 border: "1px solid silver",
                 padding: 2,
               }}

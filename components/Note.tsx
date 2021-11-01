@@ -5,7 +5,6 @@ import Pile from "./Pile";
 import Text from "./Text";
 
 const NoteWrapper = styled(Pile)`
-  width: 12rem;
   background: ${({ theme }) => theme.palette.primary.main}1a;
   margin: 0.2rem;
   border-radius: 0.4rem;

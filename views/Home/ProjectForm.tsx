@@ -4,31 +4,36 @@ import * as Yup from "yup";
 import InputField from "components/InputField";
 import Button from "components/Button";
 import Row from "components/Row";
-import stack from "interfaces/stack";
+import InputLabel from "components/InputLabel";
+import Dropdown from "components/Dropdown";
 import { v4 } from "uuid";
-import createStack from "services/createStack";
+import Pile from "components/Pile";
+import ErrorMessage from "components/ErrorMessage";
 import { useUser } from "context";
+import project from "interfaces/project";
+import createProject from "services/createProject";
 
-const StackForm = ({
+const ProjectForm = ({
   initialValues,
   onClose,
 }: {
-  initialValues: stack;
+  initialValues: project;
   onClose?: () => void;
 }) => {
   const {
     user: { uid },
   } = useUser();
-
+  const statusList = ["todo", "doing", "done", "reviewing"];
   const validationSchema = Yup.object({
     name: Yup.string().required("Required"),
     description: Yup.string().max(160, "Must be 160 characters or less"),
+    status: Yup.string().oneOf(statusList).required("Please select a stack"),
   });
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      createStack(uid, {
+      createProject(uid, {
         ...values,
         id: values.id || v4(),
         modified: Date.now(),
@@ -53,6 +58,20 @@ const StackForm = ({
         errorMessage={formik.errors.description}
         {...formik.getFieldProps("description")}
       />
+      <Pile>
+        <InputLabel htmlFor="status">Status</InputLabel>
+        <Dropdown
+          style={{ textTransform: "capitalize" }}
+          id="status"
+          {...formik.getFieldProps("status")}
+          onChange={(e) => formik.setFieldValue("status", e.target.value)}
+          list={statusList}
+          value={formik.values.status}
+        />
+        {formik.touched.status && formik.errors.status ? (
+          <ErrorMessage>{formik.errors.status}</ErrorMessage>
+        ) : null}
+      </Pile>
       <Row
         style={{
           justifyContent: "space-evenly",
@@ -78,4 +97,4 @@ const StackForm = ({
   );
 };
 
-export default StackForm;
+export default ProjectForm;

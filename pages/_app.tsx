@@ -6,6 +6,7 @@ import breakpoints from "theme/breakpoints";
 import elevation from "theme/elevation";
 import priority from "theme/priority";
 import { AppProps } from "next/app";
+import "@atlaskit/css-reset";
 
 const theme = {
   breakpoints,

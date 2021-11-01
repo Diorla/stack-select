@@ -76,11 +76,7 @@ export default function ToolItem({
         )}
       </Row>
       <Row style={{ justifyContent: "space-between", alignItems: "baseline" }}>
-        <Rating
-          value={tool.rating}
-          onChange={(value) => updateRating(value)}
-          disabled={!hideCheckbox}
-        />
+        <Rating value={tool.rating} onChange={(value) => updateRating(value)} />
         <MdDelete
           style={{ cursor: "pointer", height: 24, width: 24 }}
           onClick={() => setDeleteModal(true)}

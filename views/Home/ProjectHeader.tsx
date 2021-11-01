@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import Row from "components/Row";
+import Text from "components/Text";
 import { useUser } from "context";
 import Stats from "components/Stats";
 import { status } from "interfaces/project";
 import Hidden from "components/Hidden";
 import Button from "components/Button";
-import Dropdown from "components/Dropdown";
-import Input from "components/Input";
-import InputLabel from "components/InputLabel";
 import Modal from "components/Modal";
-import Pile from "components/Pile";
-import Textarea from "components/Textarea";
-import Text from "components/Text";
-import createProject from "services/createProject";
-import { v4 } from "uuid";
+import ProjectForm from "./ProjectForm";
 
 export default function UserHeader({
   onClick,
@@ -22,10 +16,7 @@ export default function UserHeader({
   onClick: (status: status | "") => void;
   status: status | "";
 }) {
-  const {
-    projects,
-    user: { uid },
-  } = useUser();
+  const { projects } = useUser();
   const doing = projects.filter((item) => item.status === "doing");
   const done = projects.filter((item) => item.status === "done");
   const todo = projects.filter((item) => item.status === "todo");
@@ -41,22 +32,6 @@ export default function UserHeader({
     description: "",
     status: "todo",
   });
-  const addProject = () => {
-    createProject(uid, {
-      ...project,
-      id: v4(),
-      modified: Date.now(),
-      toolsId: [],
-      notes: [],
-    }).then(() =>
-      setProject({
-        ...project,
-        visible: false,
-        name: "",
-        description: "",
-      })
-    );
-  };
   return (
     <Row
       style={{
@@ -70,52 +45,21 @@ export default function UserHeader({
         visible={project.visible}
         onClose={() => setProject({ ...project, visible: false })}
       >
-        <Pile style={{ justifyContent: "center" }}>
-          <Text variant="h3" style={{ textAlign: "center" }}>
-            New Project
-          </Text>
-          <InputLabel htmlFor="Name">Name</InputLabel>
-          <Input
-            id="Name"
-            value={project.name}
-            onChange={(e) => setProject({ ...project, name: e.target.value })}
-          />
-          <InputLabel htmlFor="Description">Description</InputLabel>
-          <Textarea
-            id="Description"
-            value={project.description}
-            onChange={(e) =>
-              setProject({ ...project, description: e.target.value })
-            }
-            rows={4}
-          />
-          <InputLabel htmlFor="Status">Status</InputLabel>
-          <Dropdown
-            id="Status"
-            style={{
-              textTransform: "capitalize",
-            }}
-            list={["todo", "doing", "done", "reviewing"]}
-            value={project.status}
-            onChange={(e) =>
-              setProject({
-                ...project,
-                status: e.target.value as status,
-              })
-            }
-          />
-          <Row style={{ justifyContent: "space-evenly" }}>
-            <Button onClick={addProject} color="success">
-              Save
-            </Button>
-            <Button
-              onClick={() => setProject({ ...project, visible: false })}
-              color="error"
-            >
-              Cancel
-            </Button>
-          </Row>
-        </Pile>
+        <Text variant="h3" style={{ textAlign: "center" }}>
+          New Project
+        </Text>
+        <ProjectForm
+          initialValues={{
+            name: "",
+            notes: [],
+            id: "",
+            toolsId: [],
+            description: "",
+            status: "todo",
+            modified: 0,
+          }}
+          onClose={() => setProject({ ...project, visible: false })}
+        />
       </Modal>
       <Row>
         <Hidden smDown>

@@ -7,8 +7,29 @@ import Textarea from "components/Textarea";
 import { useUser } from "context";
 import project from "interfaces/project";
 import React, { useState } from "react";
+import styled from "styled-components";
 import addNote from "./addNote";
 import deleteNote from "./deleteNote";
+
+const Masonry = styled.div`
+  column-count: 1;
+  column-gap: 10px;
+  margin: auto;
+
+  & > div {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    margin-bottom: 10px;
+    break-inside: avoid;
+  }
+
+  @media (min-width: 980px) {
+    column-count: 2;
+  }
+  @media (min-width: 1220px) {
+    column-count: 3;
+  }
+`;
 
 export default function NoteManager({
   currentProject,
@@ -72,13 +93,7 @@ export default function NoteManager({
           </Row>
         </Card>
       ) : null}
-      <Row
-        style={{
-          flexWrap: "wrap",
-          flex: 1,
-          justifyContent: "space-evenly",
-        }}
-      >
+      <Masonry>
         {currentProject.notes.map((item, idx) => (
           <Note
             key={idx}
@@ -86,7 +101,7 @@ export default function NoteManager({
             deleteNote={() => deleteNote(idx, uid, currentProject)}
           />
         ))}
-      </Row>
+      </Masonry>
     </Pile>
   );
 }

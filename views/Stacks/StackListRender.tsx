@@ -1,3 +1,4 @@
+import Masonry from "components/Masonry";
 import Row from "components/Row";
 import StackCard from "components/StackCard";
 import stack from "interfaces/stack";
@@ -11,7 +12,7 @@ export default function StackListRender({
   searchValue: string;
 }) {
   return (
-    <Row style={{ padding: 4, justifyContent: "space-evenly" }}>
+    <Masonry>
       {stacks
         .filter((item) =>
           `${item.name} ${item.description}`.toLowerCase().includes(searchValue)
@@ -19,6 +20,6 @@ export default function StackListRender({
         .map((item) => (
           <StackCard stack={item} key={item.id} />
         ))}
-    </Row>
+    </Masonry>
   );
 }

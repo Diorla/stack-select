@@ -1,3 +1,4 @@
+import Masonry from "components/Masonry";
 import Row from "components/Row";
 import ToolCard from "components/ToolCard";
 import tool from "interfaces/tool";
@@ -11,7 +12,7 @@ export default function ShowAll({
   searchValue: string;
 }) {
   return (
-    <Row style={{ padding: 4, justifyContent: "space-evenly" }}>
+    <Masonry>
       {tools
         .filter((item) =>
           `${item.name} ${item.description}`.toLowerCase().includes(searchValue)
@@ -19,6 +20,6 @@ export default function ShowAll({
         .map((item) => (
           <ToolCard tool={item} key={item.id} />
         ))}
-    </Row>
+    </Masonry>
   );
 }

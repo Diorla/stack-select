@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import StackHeader from "./StackHeader";
 import Modal from "components/Modal";
 import SearchAppBar from "components/SearchAppBar";
+import Text from "components/Text";
 import StackListRender from "./StackListRender";
 import StackForm from "./StackForm";
 
@@ -26,8 +27,12 @@ export default function Stacks() {
       <Section
         headerHeight={40}
         header={<StackHeader addNewStack={() => setVisible(true)} />}
+        scrollStyle={{ display: "flex" }}
       >
         <Modal visible={visible} onClose={() => setVisible(false)}>
+          <Text variant="h3" style={{ textAlign: "center" }}>
+            New Stack
+          </Text>
           <StackForm
             initialValues={{
               name: "",
