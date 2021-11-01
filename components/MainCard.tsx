@@ -11,11 +11,11 @@ import Text from "./Text";
 
 const StyledCard = styled(Card)`
   min-height: 8rem;
-  margin: 0.4rem;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
-  width: 18rem;
+  width: 240px;
+  margin-bottom: 10px;
 `;
 
 export default function MainCard({
@@ -56,7 +56,7 @@ export default function MainCard({
           </Row>
         </Pile>
       </Modal>
-      <Pile style={{ justifyContent: "space-between", flex: 1 }}>
+      <Pile style={{ justifyContent: "space-between", flex: 1, width: "100%" }}>
         <Pile>{header}</Pile>
         <Pile style={{ flex: 1, justifyContent: "flex-start" }}>
           {children}

@@ -8,16 +8,24 @@ export default function Section({
   header,
   children,
   style,
+  headerStyle,
+  scrollStyle,
 }: {
   headerHeight: number;
   header: React.ReactNode;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  headerStyle?: React.CSSProperties;
+  scrollStyle?: React.CSSProperties;
 }) {
   return (
     <Layer style={style}>
-      <Header headerHeight={headerHeight}>{header}</Header>
-      <Scroll headerHeight={headerHeight}>{children}</Scroll>
+      <Header headerHeight={headerHeight} style={headerStyle}>
+        {header}
+      </Header>
+      <Scroll headerHeight={headerHeight} style={scrollStyle}>
+        {children}
+      </Scroll>
     </Layer>
   );
 }

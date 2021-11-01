@@ -52,6 +52,7 @@ export default function Tools() {
             addNewTool={() => setVisible(true)}
           />
         }
+        scrollStyle={{ display: "flex" }}
       >
         <Modal visible={visible} onClose={() => setVisible(false)}>
           <Text variant="h3" style={{ textAlign: "center" }}>

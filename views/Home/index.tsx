@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "components/Layout";
 import Section from "components/Section";
-import Row from "components/Row";
+import Masonry from "components/Masonry";
 import { useUser } from "context";
 import ProjectCard from "components/ProjectCard";
 import SearchAppBar from "components/SearchAppBar";
@@ -34,8 +34,9 @@ export default function Home() {
         <Section
           headerHeight={70}
           header={<ProjectHeader onClick={toggleStatus} status={status} />}
+          scrollStyle={{ display: "flex" }}
         >
-          <Row style={{ justifyContent: "space-evenly" }}>
+          <Masonry>
             {projects
               .filter(
                 (item) =>
@@ -47,7 +48,7 @@ export default function Home() {
               .map((item) => (
                 <ProjectCard key={item.id} project={item} />
               ))}
-          </Row>
+          </Masonry>
         </Section>
       )}
     </Layout>

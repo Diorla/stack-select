@@ -8,6 +8,7 @@ import deleteTool from "services/deleteTool";
 import Button from "./Button";
 import Card from "./Card";
 import Divider from "./Divider";
+import MainCard from "./MainCard";
 import Modal from "./Modal";
 import NavLink from "./NavLink";
 import Pile from "./Pile";
@@ -31,66 +32,45 @@ export default function ToolCard({ tool }: { tool: tool }) {
     });
   };
   return (
-    <Card
-      elevation={1}
+    <MainCard
+      header={
+        <Row style={{ justifyContent: "space-between", padding: "0.4rem" }}>
+          <Link href={`/tool/${tool.id}`} passHref>
+            <NavLink>
+              <Text variant="h3" style={{ cursor: "pointer", color: "black" }}>
+                {name}
+              </Text>
+            </NavLink>
+          </Link>
+        </Row>
+      }
+      footer={
+        <Row
+          style={{
+            justifyContent: "space-between",
+            padding: "0.4rem",
+          }}
+        >
+          <Rating value={rating} onChange={(value) => updateRating(value)} />
+          <MdDelete
+            style={{ cursor: "pointer", height: 24, width: 24 }}
+            onClick={() => setDeleteModal(true)}
+          />
+        </Row>
+      }
       color="primary"
-      style={{
-        width: "16rem",
-        minHeight: "8rem",
-        margin: "0.2rem",
-        borderRadius: "0.4rem",
-        display: "flex",
-        justifyContent: "space-between",
-        flexDirection: "column",
+      visible={deleteModal}
+      name={tool.name}
+      onClose={function (): void {
+        setDeleteModal(false);
+      }}
+      onDelete={function (): void {
+        deleteThis();
       }}
     >
-      <Modal visible={deleteModal} onClose={() => setDeleteModal(false)}>
-        <Pile>
-          <Text variant="h4" style={{ textAlign: "center" }}>
-            Delete <u>{tool.name}</u>
-          </Text>
-          <Text>Are you sure?</Text>
-          <Text>This action cannot be undone</Text>
-          <Row style={{ justifyContent: "space-evenly" }}>
-            <Button onClick={deleteThis} color="error">
-              Delete
-            </Button>
-            <Button onClick={() => setDeleteModal(false)} color="info">
-              Cancel
-            </Button>
-          </Row>
-        </Pile>
-      </Modal>
-      <Row
-        style={{
-          justifyContent: "space-between",
-          padding: "0.4rem",
-        }}
-      >
-        <Link href={`/tool/${tool.id}`} passHref>
-          <NavLink>
-            <Text variant="h3" style={{ cursor: "pointer", color: "black" }}>
-              {name}
-            </Text>
-          </NavLink>
-        </Link>
-      </Row>
       <Text style={{ padding: "0.4rem", wordBreak: "break-word" }}>
         {description}
       </Text>
-      <Divider size={1} color="primary" />
-      <Row
-        style={{
-          justifyContent: "space-between",
-          height: "2.4rem",
-        }}
-      >
-        <Rating value={rating} onChange={(value) => updateRating(value)} />
-        <MdDelete
-          style={{ cursor: "pointer", height: 24, width: 24 }}
-          onClick={() => setDeleteModal(true)}
-        />
-      </Row>
-    </Card>
+    </MainCard>
   );
 }
