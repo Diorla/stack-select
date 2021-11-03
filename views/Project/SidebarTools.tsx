@@ -29,11 +29,13 @@ export default function SidebarTools({
   currentProject,
   resetStackId,
   hideFilter,
+  onClick,
 }: {
   stackId: string;
   currentProject?: project;
   resetStackId: () => void;
   hideFilter?: boolean;
+  onClick: () => void;
 }) {
   const {
     tools,
@@ -84,6 +86,7 @@ export default function SidebarTools({
           filterTwo={filterTwoStack}
           filterInfo={filterInfo}
           hideFilter={hideFilter}
+          onClick={onClick}
         />
       }
       style={{ flex: 3 }}

@@ -11,11 +11,13 @@ import React, { useState } from "react";
 import { MdEdit } from "react-icons/md";
 import SidebarTools from "views/Project/SidebarTools";
 import StackForm from "views/Stacks/StackForm";
+import MobileRender from "./MobileRender";
 import NoteManager from "./NoteManager";
 
 export default function Stack({ id }: { id: string }) {
   const { stacks, loadingStack } = useUser();
   const [visible, setVisible] = useState(false);
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const currentStack = stacks.filter((tool) => tool.id === id)[0];
   if (loadingStack) return <div>loading</div>;
@@ -24,7 +26,13 @@ export default function Stack({ id }: { id: string }) {
     <Layout activePath="stack" appBar={<NoSearchAppBar />}>
       {currentStack ? (
         <Section
-          header={<ItemPageHeader href="/stacks" name={currentStack.name} />}
+          header={
+            <ItemPageHeader
+              href="/stacks"
+              name={currentStack.name}
+              onClick={() => setSidebarVisible(!sidebarVisible)}
+            />
+          }
           headerHeight={40}
           style={{ flex: 5 }}
         >
@@ -62,13 +70,14 @@ export default function Stack({ id }: { id: string }) {
       ) : (
         <Text>Stack not found</Text>
       )}
-      <Hidden mdDown>
+      <MobileRender hidden={!sidebarVisible}>
         <SidebarTools
           stackId={currentStack.id}
           resetStackId={() => null}
           hideFilter
+          onClick={() => setSidebarVisible(!sidebarVisible)}
         />
-      </Hidden>
+      </MobileRender>
     </Layout>
   );
 }

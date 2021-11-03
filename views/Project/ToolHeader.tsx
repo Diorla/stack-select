@@ -1,4 +1,5 @@
 import Button from "components/Button";
+import Hidden from "components/Hidden";
 import NavLink from "components/NavLink";
 import Pile from "components/Pile";
 import Row from "components/Row";
@@ -9,7 +10,19 @@ import { useUser } from "context";
 import stack from "interfaces/stack";
 import Link from "next/link";
 import React, { useState } from "react";
+import { MdClose } from "react-icons/md";
+import styled from "styled-components";
 import ToolForm from "views/Tools/ToolForm";
+
+const Styled = styled(Row)`
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const Close = styled(MdClose)`
+  font-size: 24px;
+  cursor: pointer;
+`;
 
 export default function ToolHeader({
   setSearch,
@@ -19,6 +32,7 @@ export default function ToolHeader({
   filterTwo,
   filterInfo,
   hideFilter,
+  onClick,
 }: {
   setSearch: (arg: string) => void;
   currentStack: stack;
@@ -30,6 +44,7 @@ export default function ToolHeader({
     title: string;
   };
   hideFilter?: boolean;
+  onClick: () => void;
 }) {
   const {} = useUser();
   const { id: stackId, name } = currentStack;
@@ -38,11 +53,14 @@ export default function ToolHeader({
   return (
     <Pile style={{ width: "100%", alignItems: "center", position: "relative" }}>
       <Pile style={{ alignItems: "center", width: "100%" }}>
-        <Link href={`/stack/${stackId}`} passHref>
-          <NavLink>
-            <Text variant="h3">{name}</Text>
-          </NavLink>
-        </Link>
+        <Styled>
+          <Link href={`/stack/${stackId}`} passHref>
+            <NavLink>
+              <Text variant="h3">{name}</Text>
+            </NavLink>
+          </Link>
+          <Hidden lgUp>{onClick ? <Close onClick={onClick} /> : null}</Hidden>
+        </Styled>
         {isProject ? (
           <Row style={{ width: "100%", justifyContent: "center" }}>
             <Button onClick={goBack} color="secondary" variant="text">

@@ -3,16 +3,31 @@ import Row from "components/Row";
 import Text from "components/Text";
 import Link from "next/link";
 import React from "react";
+import { MdMenu } from "react-icons/md";
+import styled from "styled-components";
+import Hidden from "./Hidden";
+
+const Styled = styled(Row)`
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const Menu = styled(MdMenu)`
+  font-size: 24px;
+  cursor: pointer;
+`;
 
 export default function ItemPageHeader({
   name,
   href,
+  onClick,
 }: {
   name: string;
   href: string;
+  onClick?: () => void;
 }) {
   return (
-    <Row>
+    <Styled>
       <Text>
         <Link href={href} passHref>
           <NavLink
@@ -27,6 +42,7 @@ export default function ItemPageHeader({
         </Link>
         /{name}
       </Text>
-    </Row>
+      <Hidden lgUp>{onClick ? <Menu onClick={onClick} /> : null}</Hidden>
+    </Styled>
   );
 }

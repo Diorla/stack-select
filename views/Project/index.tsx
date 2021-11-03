@@ -15,11 +15,13 @@ import SidebarTools from "./SidebarTools";
 import SidebarStacks from "./SidebarStacks";
 import Modal from "components/Modal";
 import ProjectForm from "views/Home/ProjectForm";
+import MobileRender from "views/Stack/MobileRender";
 
 export default function Project({ id }: { id: string }) {
   const [visible, setVisible] = useState(false);
   const [stackId, setStackId] = useState("");
   const { projects } = useUser();
+  const [sidebarVisible, setSidebarVisible] = useState(false);
 
   const currentProject = projects.filter((project) => project.id === id)[0];
 
@@ -29,7 +31,13 @@ export default function Project({ id }: { id: string }) {
         <>
           <Section
             headerHeight={35}
-            header={<ItemPageHeader href="/" name={currentProject.name} />}
+            header={
+              <ItemPageHeader
+                href="/"
+                name={currentProject.name}
+                onClick={() => setSidebarVisible(!sidebarVisible)}
+              />
+            }
             style={{ flex: 5 }}
           >
             <Modal visible={visible} onClose={() => setVisible(false)}>
@@ -65,17 +73,21 @@ export default function Project({ id }: { id: string }) {
               <NoteManager currentProject={currentProject} />
             </Pile>
           </Section>
-          <Hidden mdDown>
+          <MobileRender hidden={!sidebarVisible}>
             {stackId ? (
               <SidebarTools
                 stackId={stackId}
                 currentProject={currentProject}
                 resetStackId={() => setStackId("")}
+                onClick={() => setSidebarVisible(!sidebarVisible)}
               />
             ) : (
-              <SidebarStacks setStackId={(id) => setStackId(id)} />
+              <SidebarStacks
+                setStackId={(id) => setStackId(id)}
+                onClick={() => setSidebarVisible(!sidebarVisible)}
+              />
             )}
-          </Hidden>
+          </MobileRender>
         </>
       ) : (
         <div>Sorry, no project found</div>
