@@ -5,6 +5,9 @@ const Masonry = styled.div`
   column-gap: 10px;
   margin: auto;
 
+  & > div {
+    break-inside: avoid;
+  }
   @media (min-width: 640px) {
     column-count: 2;
   }
