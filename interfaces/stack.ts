@@ -3,4 +3,5 @@ export default interface stack {
   name: string;
   description: string;
   modified: number;
+  notes?: string[];
 }

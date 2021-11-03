@@ -1,14 +1,7 @@
-import React from "react";
 import project from "interfaces/project";
 import createProject from "services/createProject";
 
 export default function deleteNote(
-  // setNote: React.Dispatch<
-  //   React.SetStateAction<{
-  //     visible: boolean;
-  //     value: string;
-  //   }>
-  // >,
   idx: number,
   uid: string,
   currentProject: project

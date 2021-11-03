@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import { MdEdit } from "react-icons/md";
 import SidebarTools from "views/Project/SidebarTools";
 import StackForm from "views/Stacks/StackForm";
+import NoteManager from "./NoteManager";
 
 export default function Stack({ id }: { id: string }) {
   const { stacks, loadingStack } = useUser();
@@ -55,6 +56,7 @@ export default function Stack({ id }: { id: string }) {
             >
               {currentStack.description || "No description"}
             </Text>
+            <NoteManager currentStack={currentStack} />
           </Pile>
         </Section>
       ) : (
