@@ -1,7 +1,6 @@
 import React from "react";
 import { FaHome, FaTools } from "react-icons/fa";
 import { GrStackOverflow } from "react-icons/gr";
-import { MdSettings } from "react-icons/md";
 import SidebarIcon from "./SidebarIcon";
 import Link from "next/link";
 import styled from "styled-components";
@@ -34,14 +33,6 @@ export default function Sidebar({ activePath }: { activePath: path }) {
       <Link href="/tools">
         <a>
           <SidebarIcon icon={<FaTools />} active={activePath === "tool"} />
-        </a>
-      </Link>
-      <Link href="/settings">
-        <a>
-          <SidebarIcon
-            icon={<MdSettings />}
-            active={activePath === "settings"}
-          />
         </a>
       </Link>
     </Styled>

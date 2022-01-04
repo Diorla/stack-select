@@ -14,7 +14,7 @@ export default function Sectioned({
     .filter((item) => item !== "misc")
     .sort((prev, next) => (prev > next ? 1 : -1));
   return (
-    <Pile>
+    <Pile style={{ flex: 1, justifyContent: "flex-start" }}>
       <SectionList
         stack="Misc"
         list={tools.misc.filter((item) =>
@@ -22,16 +22,12 @@ export default function Sectioned({
         )}
       />
       {toolList.map((stack) => {
-        return (
-          <SectionList
-            stack={stack}
-            list={tools[stack].filter((item) =>
-              `${item.name} ${item.description} ${stack}`
-                .toLowerCase()
-                .includes(searchValue)
-            )}
-          />
+        const list = tools[stack].filter((item) =>
+          `${item.name} ${item.description} ${stack}`
+            .toLowerCase()
+            .includes(searchValue)
         );
+        return list.length ? <SectionList stack={stack} list={list} /> : null;
       })}
     </Pile>
   );

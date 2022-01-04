@@ -10,12 +10,9 @@ import Row from "./Row";
 import Text from "./Text";
 
 const StyledCard = styled(Card)`
-  min-height: 8rem;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
-  width: 240px;
-  margin-bottom: 10px;
 `;
 
 export default function MainCard({

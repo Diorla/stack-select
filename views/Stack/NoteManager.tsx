@@ -11,24 +11,16 @@ import styled from "styled-components";
 import addNote from "./addNote";
 import deleteNote from "./deleteNote";
 
-const Masonry = styled.div`
-  column-count: 1;
-  column-gap: 10px;
-  margin: auto;
-
-  & > div {
-    display: grid;
-    grid-template-rows: 1fr auto;
-    margin-bottom: 10px;
-    break-inside: avoid;
-  }
-
-  @media (min-width: 980px) {
-    column-count: 2;
-  }
-  @media (min-width: 1220px) {
-    column-count: 3;
-  }
+const Masonry = styled.div<{
+  minWidth?: number;
+  gap?: number;
+  padding?: number;
+}>`
+  display: grid;
+  grid-template-columns: ${({ minWidth = 200 }) =>
+    `repeat(auto-fit, minmax(${minWidth}px, 1fr))`};
+  gap: ${({ gap = 2 }) => `${gap}px`};
+  padding: ${({ padding = 4 }) => `${padding}px`};
 `;
 
 export default function NoteManager({ currentStack }: { currentStack: stack }) {

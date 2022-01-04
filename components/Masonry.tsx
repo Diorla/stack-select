@@ -1,22 +1,15 @@
 import styled from "styled-components";
 
-const Masonry = styled.div`
-  column-count: 1;
-  column-gap: 10px;
-  margin: auto;
-
-  & > div {
-    break-inside: avoid;
-  }
-  @media (min-width: 640px) {
-    column-count: 2;
-  }
-  @media (min-width: 780px) {
-    column-count: 3;
-  }
-  @media (min-width: 1020px) {
-    column-count: 4;
-  }
+const Masonry = styled.div<{
+  minWidth?: number;
+  gap?: number;
+  padding?: number;
+}>`
+  display: grid;
+  grid-template-columns: ${({ minWidth = 300 }) =>
+    `repeat(auto-fit, minmax(${minWidth}px, 1fr))`};
+  gap: ${({ gap = 12 }) => `${gap}px`};
+  padding: ${({ padding = 4 }) => `${padding}px`};
 `;
 
 export default Masonry;
